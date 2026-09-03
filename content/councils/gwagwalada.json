@@ -1,0 +1,40 @@
+{
+  "id": "gwagwalada",
+  "name": "Gwagwalada Area Council",
+  "headquarters": "Gwagwalada",
+  "terrainType": "Agrarian Floodplain",
+  "populationServed": 410000,
+  "coordinates": {
+    "lat": 8.9482,
+    "lng": 7.0864
+  },
+  "fieldDispatchLead": {
+    "name": "Ibrahim Suleiman",
+    "role": "Agritech & Maternal Outreach Coordinator",
+    "phone": "+234 805 119 7245"
+  },
+  "activeProjects": [
+    {
+      "id": "gwagwalada-proj-paiko-seeds",
+      "title": "Paiko Agritech Seed Bank",
+      "category": "agriculture",
+      "settlementName": "Paiko-Kore",
+      "settlementType": "Agrarian Farming Settlement",
+      "beneficiariesCount": 8900,
+      "status": "active",
+      "description": "Climate-resilient indigenous seed preservation, zero-chemical natural pest management workshops, and communal cold storage lockers operated on solar thermal power.",
+      "mediaPath": "/media/councils/gwagwalada-paiko.jpg"
+    },
+    {
+      "id": "gwagwalada-proj-dobi-clinic",
+      "title": "Dobi Maternal Clinic",
+      "category": "healthcare",
+      "settlementName": "Dobi Community",
+      "settlementType": "Rural Floodplain Village",
+      "beneficiariesCount": 11400,
+      "status": "active",
+      "description": "Solar-electrified maternal and obstetric triage post equipped with infant incubators, vaccine cooling fridges, and emergency motorcycle ambulance transport.",
+      "mediaPath": "/media/councils/gwagwalada-dobi.jpg"
+    }
+  ]
+}

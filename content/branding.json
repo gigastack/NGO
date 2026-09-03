@@ -1,0 +1,8 @@
+{
+  "logoUrl": "/branding/logo.svg",
+  "logoAlt": "Abuja Resilience Initiative Emblazon",
+  "crestSvgPath": "/branding/crest.svg",
+  "faviconUrl": "/favicon.ico",
+  "primaryColorHex": "#B85D36",
+  "themeMode": "light"
+}

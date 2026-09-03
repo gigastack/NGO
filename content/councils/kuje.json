@@ -1,0 +1,40 @@
+{
+  "id": "kuje",
+  "name": "Kuje Area Council",
+  "headquarters": "Kuje",
+  "terrainType": "Forested Agrarian Ridges",
+  "populationServed": 320000,
+  "coordinates": {
+    "lat": 8.8789,
+    "lng": 7.2345
+  },
+  "fieldDispatchLead": {
+    "name": "Comfort Danladi",
+    "role": "Forest Conservation & Hydrogeology Specialist",
+    "phone": "+234 807 889 3120"
+  },
+  "activeProjects": [
+    {
+      "id": "kuje-proj-rubochi-borehole",
+      "title": "Rubochi Clean Aquifer Borehole",
+      "category": "water_sanitation",
+      "settlementName": "Rubochi Rural Center",
+      "settlementType": "Highland Agrarian Settlement",
+      "beneficiariesCount": 9800,
+      "status": "active",
+      "description": "Deep 120-meter geological aquifer well serving pastoralist and farming communities with mineral-pure drinking water and livestock watering troughs.",
+      "mediaPath": "/media/councils/kuje-rubochi.jpg"
+    },
+    {
+      "id": "kuje-proj-gaube-agroforestry",
+      "title": "Gaube Agro-Forestry Hub",
+      "category": "agriculture",
+      "settlementName": "Gaube Forest Enclave",
+      "settlementType": "Forested Community Buffer",
+      "beneficiariesCount": 6200,
+      "status": "active",
+      "description": "Restoring native shea and locust bean forest canopies through indigenous tree nurseries, beekeeping apiculture apiaries, and women-led organic honey processing.",
+      "mediaPath": "/media/councils/kuje-gaube.jpg"
+    }
+  ]
+}

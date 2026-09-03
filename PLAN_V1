@@ -1,0 +1,321 @@
+# Engineering Implementation Plan: Extensible & Configurable Abuja NGO Web Portal
+
+## Context
+The goal is to build an exceptionally modern, high-aesthetic web portal for a non-governmental organization based in Abuja, Nigeria, hosted on Vercel, that is **extensively configurable and easily editable** by non-technical staff and administrators. Every single detail—organization name, acronym, branding logos, color accents, mission statements, FCT Area Council field projects, banking credentials, media feeds, and statutory compliance numbers—is completely decoupled from component markup and managed through a multi-tier content architecture: modular JSON content files, a built-in visual Content Studio (`/admin`), environment variable overrides, and on-demand edge cache revalidation.
+
+Instead of synthetic command-line media generation (`ffmpeg` drawbox placeholders), all visual assets are crafted through the vision-capable **`designer` agent** (configured with `@vision` / `gemini-3.8-flash-high`) executing a cohesive narrative spine: **"From Granite to Grassroots: The Abuja Corridor Story"**. These assets are systematically reused across the platform (Hero ambient stream, mini-documentaries, bento grids, project modals, and social dispatch cards). Media delivery is managed through a provider-agnostic **Media Storage Abstraction Layer** (`src/lib/media/resolver.ts`) supporting Cloudinary by default, self-hosted Docker volumes / local disks, and AWS S3 / Cloudflare R2 / MinIO. The platform adheres strictly to the Impeccable Design System's Warm Afro-Modernism aesthetic, craft-floor accessibility, low-bandwidth data-saver streaming, and a multi-currency donation drawer supporting Nigerian banking/payment rails alongside international domiciliary wires and card checkout.
+
+---
+
+## Approach
+
+### 1. Foundation: Impeccable Design Tokens & Core Application Shell
+- **Action**: Scaffold a Next.js 15 (App Router) project with React 19, TypeScript, Tailwind CSS v4, Lucide React, and Motion (`motion` v12).
+- **Tokens Architecture**: Configure `app/globals.css` with native Tailwind v4 `@theme` block containing the audited Warm Afro-Modernism color space:
+  ```css
+  @theme {
+    --color-terracotta-primary: #B85D36; /* Button fill with white text (4.65:1 AA) */
+    --color-terracotta-link: #9E4723;    /* Text links on parchment ground (4.72:1 AA) */
+    --color-terracotta-surface: #F9EFEB;
+    --color-granite-deep: #111113;       /* Headlines & high-contrast obsidian text */
+    --color-granite-card: #1E1E22;       /* Dark card surfaces */
+    --color-granite-border: #2D2D34;
+    --color-granite-muted: #7A736B;      /* Warm-tinted muted text (4.52:1 AA on parchment) */
+    --color-savannah-primary: #1C3F35;   /* Deep emerald accent */
+    --color-savannah-surface: #E8F0ED;
+    --color-parchment-ground: #FAF8F5;   /* Core page background */
+    --color-parchment-subtle: #F3EFEA;
+    --color-parchment-border: #E5DFD5;
+    --color-ochre-accent: #D49B35;
+  }
+  ```
+- **Typography**: Load `Cabinet Grotesk` (Display headings) and `Satoshi` (Body copy and tabular figures) with fluid `clamp()` sizing in `app/layout.tsx`. Fallback: `system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`.
+- **Direction Contract**: Inject the verified Impeccable Direction Contract HTML comment as the immediate first child of `<body>` in `app/layout.tsx`.
+- **Craft-Floor Rules**: Enforce strict design rules: zero text gradients, zero monospace as decorative labels, zero raw neobrutalist block shadows (layered soft shadows only), and zero nested cards.
+
+---
+
+### 2. Vision-Agent Storyline & Systematic Media Asset Architecture
+
+The visual media assets are designed and generated via the **`designer` agent** (powered by `@vision`) around a coherent narrative spine: **"From Granite to Grassroots: The Abuja Corridor Story"**. Each asset embodies a specific chapter of community resilience across Nigeria's Federal Capital Territory and is purposefully reused across multiple UI surfaces.
+
+#### 2.1 Narrative Acts & Asset Specifications
+
+1. **Act 1: The Monolith & The Margin (Civic Identity & Grassroots Presence)**
+   - **Asset Key**: `media-monolith-civic` (`public/media/image-monolith-civic.svg` + raster WebP / Cloudinary asset)
+   - **Storyline**: The majestic granite silhouette of Zuma Rock and Aso Hill catching golden-hour sunlight, towering above the lively communal gathering centers and peri-urban settlements in the valley. It encapsulates the tension and connection between national civic authority and the grassroots communities at its periphery.
+   - **Art Direction**: Terracotta (`#B85D36`) and Savannah Emerald (`#1C3F35`) horizon gradient, geometric rock contouring with subtle layered solar grain, warm parchment atmospheric lighting.
+   - **Cross-Site Reuse**:
+     - *Hero Section*: Primary visual backdrop and fallback poster for low-bandwidth users.
+     - *Mini-Documentary Hub*: Reel 1 Thumbnail & Poster ("The Monolith & The Margin").
+     - *Governance & Trust Panel*: Visual backdrop for the statutory compliance & trustees charter.
+     - *OpenGraph / Metadata Card*: Primary social share image.
+
+2. **Act 2: Clean Aquifers & Maternal Care (Rural Health & Water Sovereignty)**
+   - **Asset Key**: `media-health-outreach` (`public/media/image-health-outreach.svg` + raster WebP / Cloudinary asset)
+   - **Storyline**: In the agrarian plains of Kwali and Kuje, clean groundwater flows from a community solar-powered borehole into clay and steel vessels, beside a mobile primary diagnostic clinic where a female community healthcare worker tends to mothers and infants.
+   - **Art Direction**: Deep Savannah Emerald (`#1C3F35`) landscape with vibrant clean-water highlights, warm earth terracotta accents (`#B85D36`), crisp medical diagnostic iconography, and soft ochre sunlight (`#D49B35`).
+   - **Cross-Site Reuse**:
+     - *Programmatic Pillars Bento Grid*: Feature Card 1 ("Primary Healthcare & Clean Aquifers").
+     - *Mini-Documentary Hub*: Reel 2 Thumbnail & Poster ("Clean Water & Maternal Care").
+     - *Kuje & Kwali Council Drawer*: Featured field project visual for Rubochi and Yangoji outposts.
+     - *Donation Drawer*: Visual anchor for the ₦50,000 / $100 "Solar Clinic & Water Point" impact tier.
+
+3. **Act 3: Solar Code & Ancestral Clay (Youth STEM & Artisan Livelihoods)**
+   - **Asset Key**: `media-youth-education` (`public/media/image-youth-education.svg` + raster WebP / Cloudinary asset)
+   - **Storyline**: In the satellite towns of Bwari and informal settlements of AMAC (Kuchingoro/Durumi), young apprentices and students gather in a sunlit open-air workshop. Traditional pottery-making wheels (inspired by Ladi Kwali's ancestral heritage) operate alongside solar-charged tablet computers and open-source STEM kits.
+   - **Art Direction**: Warm Ochre Gold (`#D49B35`) and Granite Obsidian (`#111113`) tones, geometric ceramic pottery silhouettes, solar tablet luminescence, energetic collaborative layout.
+   - **Cross-Site Reuse**:
+     - *Programmatic Pillars Bento Grid*: Feature Card 2 ("Youth STEM & Livelihood Co-ops").
+     - *Mini-Documentary Hub*: Reel 3 Thumbnail & Poster ("Solar Code & Clay").
+     - *Bwari & AMAC Council Drawer*: Featured project visual for the Ushafa Pottery & Kuchingoro Hubs.
+     - *Donation Drawer*: Visual anchor for the ₦15,000 / $50 "Youth STEM Tablet & Apprentice Kit" impact tier.
+
+4. **Act 4: The Sacred Earth Crest & Identity System**
+   - **Asset Key**: `branding-crest` & `branding-logo` (`public/branding/crest.svg`, `public/branding/logo.svg`)
+   - **Storyline**: The visual seal of the Abuja Resilience Initiative uniting the sacred granite monolith, radiating dawn light of opportunity, and the triple-wave ribbon of community water aquifers within an emerald and terracotta shield.
+   - **Cross-Site Reuse**:
+     - *Navbar*: Main sticky header emblem with responsive wordmark.
+     - *Footer*: Formal statutory mark alongside CAC, SCUML, and TIN badges.
+     - *Donation Drawer*: Trust badge above bank transfer confirmation.
+
+#### 2.2 Cross-Site Asset Reuse Matrix
+| Media Asset | Narrative Act | Primary Placement | Secondary Placements |
+| :--- | :--- | :--- | :--- |
+| **`image-monolith-civic`** | Act 1: Monolith & Margin | **Hero Backdrop & Poster** | Mini-Doc Reel 1, Governance Charter, OG Share Card |
+| **`image-health-outreach`** | Act 2: Water & Health | **Healthcare Pillar Card** | Mini-Doc Reel 2, Kuje/Kwali Projects, ₦50k Donation Tier |
+| **`image-youth-education`** | Act 3: Youth STEM & Clay | **Education Pillar Card** | Mini-Doc Reel 3, Bwari/AMAC Projects, ₦15k Donation Tier |
+| **`video-ambient-loop`** | Acts 1–3 Synthesis | **Hero Ambient Motion Canvas** | Mini-Doc Modal Player, Council Dispatch Modals |
+
+---
+
+### 3. Multi-Tier Content & Dynamic Configuration Architecture
+
+Content is completely decoupled from React component markup and organized in modular JSON files in `content/`, validated at build and runtime by strict Zod schemas, with zero-code environment variable overrides.
+
+#### 3.1 Modular Content Directory Structure
+```
+content/
+├── organization.json    # Legal/trading name, acronym, motto, mission, vision, address, contact
+├── branding.json        # Logo URL, favicon URL, primary color hex, theme mode
+├── governance.json      # CAC Part F number, SCUML certificate, TIN, trustees board, financial %
+├── banking.json         # NGN bank details, foreign domiciliary accounts, donation tiers, gateways
+├── media.json           # Media storage config (Cloudinary/S3/Local), video stream URLs, poster paths
+├── social-feed.json     # Curated fallback social dispatches (X, Instagram, LinkedIn, YouTube)
+└── councils/            # 6 individual FCT Area Council project databases:
+    ├── amac.json
+    ├── bwari.json
+    ├── gwagwalada.json
+    ├── kuje.json
+    ├── kwali.json
+    └── abaji.json
+```
+
+#### 3.2 Schema Validation (`src/lib/schema/ngo.schema.ts`)
+- `FCTAreaCouncilIdSchema`: `'amac' | 'bwari' | 'gwagwalada' | 'kuje' | 'kwali' | 'abaji'`
+- `MediaStorageProviderSchema`: `'cloudinary' | 's3' | 'local' | 'external'`
+- `CloudinaryConfigSchema`: `cloudName: string`, `folder: string.default('portal-assets')`, `secure: boolean.default(true)`
+- `S3ConfigSchema`: `bucket: string`, `region: string`, `endpoint?: string`, `publicUrlBase?: string`
+- `LocalStorageConfigSchema`: `basePath: string.default('/media')`
+- `MediaStorageSchema`: `provider`, `cloudinary`, `s3`, `local`
+- `MediaItemSchema`: `id`, `title`, `councilId`, `mediaPath`, `durationMinutes`, `thumbnailPath`, `captionSummary`
+- `MediaSchema`: `storage`, `heroBackgroundVideo`, `heroFallbackPoster`, `ambientAudioSoundscapeUrl?: string`, `miniDocumentaries: MediaItemSchema[]`
+- `FCTFieldProjectSchema`: `id`, `title`, `category` ('education' | 'healthcare' | 'agriculture' | 'water_sanitation' | 'idp_resilience'), `settlementName`, `settlementType`, `beneficiariesCount`, `status`, `description`, `mediaPath?`
+- `FCTAreaCouncilDataSchema`: `id`, `name`, `headquarters`, `terrainType`, `populationServed`, `activeProjects`, `coordinates`, `fieldDispatchLead`
+- `OrganizationSchema`: `legalName`, `tradingName`, `acronym`, `tagline`, `mission`, `vision`, `foundingYear`, `headquartersAddress`, `email`, `phone`, `whatsappNumber`
+- `BrandingSchema`: `logoUrl`, `logoAlt`, `crestSvgPath?`, `faviconUrl`, `primaryColorHex`, `themeMode`
+- `GovernanceSchema`: `cacNumber`, `scumlNumber`, `firsTin`, `taxExemptionCitation`, `incorporationDate`, `trustees`, `auditedFinancialYear`, `financialAllocation`, `annualReportPdfUrl`
+- `BankingSchema`: `ngnAccount`, `domiciliaryAccounts`, `digitalGateways`, `donationTiers`
+- `SocialFeedItemSchema`: `id`, `platform`, `authorName`, `authorHandle`, `content`, `timestamp`, `mediaUrl?`, `permalink`, `engagement`
+- `NGOConfigSchema`: Root composite schema validating the entire data tree.
+
+#### 3.3 Dynamic Config Loader with Environment Overrides (`src/lib/config-loader.ts`)
+- Loads all modular files from `content/`.
+- Deeply merges environment variable overrides:
+  - `NEXT_PUBLIC_NGO_NAME` -> `organization.tradingName`
+  - `NEXT_PUBLIC_NGO_LEGAL_NAME` -> `organization.legalName`
+  - `NEXT_PUBLIC_NGO_WHATSAPP` -> `organization.whatsappNumber` & `banking.ngnAccount.whatsappConfirmationPhone`
+  - `MEDIA_STORAGE_PROVIDER` -> `media.storage.provider`
+  - `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` -> `media.storage.cloudinary.cloudName`
+  - `LOCAL_MEDIA_BASE_PATH` -> `media.storage.local.basePath`
+  - `S3_BUCKET_NAME` -> `media.storage.s3.bucket`
+- Validates via `NGOConfigSchema.safeParse(...)`. Fails fast with clear error messages if any data fails schema checks.
+- Provides `writeNGOConfig(updatedConfig: NGOConfig)` for the Content Studio (`/admin`) and in-memory cache invalidation.
+
+---
+
+### 4. Configurable Media Storage & Delivery Abstraction Layer
+- **Action**: Implement `src/lib/media/resolver.ts` using the Provider Strategy Pattern.
+- **Resolver Logic**:
+  ```typescript
+  export interface MediaTransformOptions {
+    width?: number;
+    height?: number;
+    quality?: 'auto' | number;
+    format?: 'auto' | 'webp' | 'avif' | 'mp4' | 'webm';
+    video?: boolean;
+  }
+
+  export function resolveMediaUrl(
+    pathOrId: string,
+    options: MediaTransformOptions = {},
+    overrideConfig?: NGOConfig
+  ): string
+  ```
+  - If `pathOrId` begins with `http://` or `https://` -> returns verbatim.
+  - **Cloudinary Strategy**: If `provider === 'cloudinary'`, constructs dynamic transformation URL:
+    `https://res.cloudinary.com/${cloudName}/${resourceType}/upload/${transforms}/${fullPath}`
+    If Cloudinary is configured as provider but `cloudName` is unset or credentials are empty in local dev, cleanly falls back to `/media/${cleanPath}` so local visual assets render flawlessly.
+  - **S3 / Cloudflare R2 / MinIO Strategy**: Constructs `${publicUrlBase}/${cleanPath}` or `https://${bucket}.s3.${region}.amazonaws.com/${cleanPath}`.
+  - **Local / Docker Volume Strategy**: Resolves to `${basePath}/${cleanPath}` (e.g. `/media/...`).
+- **Data-Saver & Performance Hook (`src/lib/media/use-media-optimization.ts`)**:
+  - Detects `navigator.connection?.saveData` and connection type (`effectiveType === '2g' | '3g'`).
+  - Automatically disables background auto-playing video streams on slow networks or data-saver mode, rendering the optimized WebP/SVG poster still with an explicit "Play Stream" manual control.
+- **Next.js Remote Patterns (`next.config.ts`)**:
+  - Configures `res.cloudinary.com`, `**.amazonaws.com`, and `**.r2.cloudflarestorage.com`.
+
+---
+
+### 5. In-App Visual Content Studio & Editor (`/admin`)
+- **Route**: `app/admin/page.tsx` + `app/api/admin/config/route.ts`.
+- **Security**: Gated by `ADMIN_PASSPHRASE` (default `abuja-resilience-2025` for development).
+- **Interactive Control Tabs**:
+  1. **General Identity**: Organization names, acronym, mission, vision, hotline, WhatsApp.
+  2. **Branding & Theme**: Logo URL, crest, theme mode, primary terracotta/emerald accent hex.
+  3. **Media & Storage Configuration**:
+     - Switch Storage Provider dropdown: **Cloudinary**, **AWS S3**, **Local / Docker Volume**.
+     - Configure Cloud Name, S3 Bucket, or Local Base Path.
+     - View the 3 narrative visual assets and assign them across sections.
+     - Add/Edit Mini-Documentary entries (Title, Council tag, duration, caption, media URL).
+  4. **FCT Area Councils & Projects**:
+     - Council selector (AMAC, Bwari, Gwagwalada, Kuje, Kwali, Abaji).
+     - Add New Project modal (Title, Category, Settlement, Type, Beneficiaries, Narrative).
+     - Edit or archive existing projects.
+  5. **Banking & Wire Instructions**:
+     - NGN bank details, sort code, WhatsApp confirmation link.
+     - Domiciliary wire instructions (USD, EUR, GBP) and digital gateway keys.
+     - Customizable donation amount tiers.
+  6. **Governance & Statutory Compliance**:
+     - CAC Part F, SCUML EFCC, and FIRS TIN numbers.
+     - Audited financial allocation percentages (Programs, Logistics, Governance).
+     - Trustee board members (add/edit trustee credentials).
+- **Action Toolbar**:
+  - "Save to Content Files" (active in local dev).
+  - "Download JSON Archive" (allows non-technical admins to download the updated content bundle for Git commits or backup).
+  - "Edge Cache Refresh" (triggers `/api/revalidate`).
+
+---
+
+### 6. On-Demand Edge Cache Revalidation (`/api/revalidate`)
+- **Route**: `app/api/revalidate/route.ts`.
+- **Security**: Validates bearer token against `REVALIDATION_SECRET`.
+- **Function**: Calls `revalidateTag('ngo-content')` and `revalidatePath('/')` to purge Vercel edge caches in < 1s without requiring a full site deployment.
+
+---
+
+### 7. UI Components & Feature Implementation
+
+1. **Navigation & Persistent Shell**:
+   - `components/layout/Navbar.tsx`: Sticky glass navigation bar rendering the Sacred Earth Crest logo, dynamic organization name, anchor links ("Impact", "FCT Map", "Programs", "Transparency", "Stories"), and high-contrast "Donate Now" CTA.
+   - `components/layout/Footer.tsx`: Complete statutory footer displaying legal name, CAC Part F, SCUML, and FIRS registration numbers with 1-click copy, Abuja headquarters address, WhatsApp field hotline, and copyright.
+
+2. **Cinematic Hero & Ambient Media Surface**:
+   - `components/hero/Hero.tsx`: Impeccable hero with fluid typography, headline reading 5–10 high-impact words, supporting mission text, dual CTAs ("Explore Field Map" & "Support Our Mission").
+   - `components/hero/HeroVideoPlayer.tsx`: Ambient motion canvas / video stream with fallback to Act 1 visual poster (`image-monolith-civic`), subtle grain overlay, and data-saver awareness.
+   - `components/hero/SoundscapeToggle.tsx`: Subtle ambient natural soundscape toggle using Web Audio gain node.
+   - `components/hero/ImpactCounterGrid.tsx`: Dynamic spring counters for Lives Touched (28,000+), Active Area Councils (6/6), and Audited Program Disbursal (84%).
+
+3. **Interactive FCT Area Councils Map & Dispatch Drawer**:
+   - `components/map/FCTMapCoordinator.tsx` & `components/map/FCTMapSVG.tsx`: Interactive vector SVG mapping the six Area Councils (AMAC, Bwari, Gwagwalada, Kuje, Kwali, Abaji) with hover states, population data, and coordinates.
+   - `components/map/CouncilDetailDrawer.tsx`: Slide-over drawer presenting the selected council's profile, terrain type, field dispatch officer contact, and list of active projects with beneficiary counts and narrative visuals.
+
+4. **Programmatic Pillars Bento Grid & Mini-Documentary Hub**:
+   - `components/pillars/ProgrammaticPillarsGrid.tsx`: Gapless bento grid featuring Act 2 (Clean Aquifers & Rural Healthcare in Kwali/Kuje), Act 3 (Youth STEM & Ceramic Heritage in Bwari/AMAC), and an emergency relief response card.
+   - `components/media/MiniDocumentaryHub.tsx`: 3-reel documentary viewer deploying the three narrative acts with video modal player (`components/media/VideoModalPlayer.tsx`), caption summaries, and full keyboard accessibility (`Esc` to close).
+
+5. **Trust, Governance & Audited Financial Disclosure Panel**:
+   - `components/governance/RegulatoryTrustPanel.tsx`: Verification badges for CAC, SCUML, and FIRS with CITA Section 23 tax-exemption citation.
+   - `components/governance/TrusteeBoardList.tsx`: Profiles of trustees with qualifications and bios.
+   - `components/governance/AuditedFinancialDonut.tsx`: High-precision interactive SVG donut chart displaying 84% Program Delivery, 11% Operational Logistics, and 5% Administrative Governance.
+
+6. **Multi-Currency Donation Drawer**:
+   - `components/donation/DonationDrawer.tsx`: Slide-in drawer with multi-currency toggle (NGN, USD, EUR, GBP).
+   - `components/donation/NairaTransferPanel.tsx`: 1-click copy for GTBank NGN account number, sort code, and pre-filled WhatsApp confirmation link.
+   - `components/donation/DomiciliaryWirePanel.tsx`: SWIFT/BIC, IBAN, and intermediary routing for international donors.
+   - `hooks/useClipboard.ts`: Robust clipboard copy utility with toast feedback.
+
+7. **Resilient Social Activity Wall**:
+   - `components/social/SocialActivityWall.tsx` & `app/api/social-feed/route.ts`: Social feed cards displaying field dispatches across Twitter/X, Instagram, LinkedIn, and YouTube, with instant fallback to `content/social-feed.json`.
+
+---
+
+## Critical Files & Anchors
+
+1. `src/lib/schema/ngo.schema.ts`
+   - Strict Zod validation schemas and TypeScript types for all modular content files, Area Councils, and provider-agnostic media storage.
+2. `src/lib/config-loader.ts`
+   - Single source of truth loading from `content/*.json`, applying Vercel environment overrides, caching, and validating data.
+3. `src/lib/media/resolver.ts`
+   - Unified media URL resolver implementing the Provider Strategy Pattern (Cloudinary, S3, Local) with development fallbacks.
+4. `app/admin/page.tsx` & `app/api/admin/config/route.ts`
+   - In-app visual Content Studio enabling non-technical users to edit details, switch media storage providers, add projects, and update banking credentials.
+5. `app/page.tsx` & `components/layout/Navbar.tsx`
+   - Root page and layout binding the modular content, narrative visual media assets, interactive map, bento grid, and donation drawer.
+
+---
+
+## Verification
+
+### End-to-End Test Matrix & Commands
+Run from project root (`/home/punkhazard/Projects/NGO`):
+
+1. **Type Safety & Build Cleanliness Check**:
+   - Command: `bun run build` (or `npm run build`)
+   - Expected Output: Exit code 0, 0 TypeScript compile errors, all static and dynamic routes compiled successfully (`/`, `/admin`, `/api/admin/config`, `/api/revalidate`, `/api/social-feed`).
+
+2. **Schema Guardrail & Validation Test**:
+   - Action: Temporarily set `accountNumber` in `content/banking.json` to an invalid 5-digit number (`"12345"`).
+   - Command: `bun run build`
+   - Expected Output: Build fails fast with clear Zod validation error highlighting the exact field and regex mismatch, preventing broken configurations from reaching production. Reverting restores clean build.
+
+3. **Cloudinary Media Resolver Test**:
+   - Action: Execute node script testing `resolveMediaUrl('image-monolith-civic.webp', { width: 1200, format: 'webp' })` with Cloudinary config (`cloudName: 'abuja-resilience'`).
+   - Expected Output: Returns `https://res.cloudinary.com/abuja-resilience/image/upload/f_webp,q_auto,w_1200/portal-assets/image-monolith-civic.webp`.
+
+4. **Storage Provider Switch to Local & S3 Test**:
+   - Action: Test `resolveMediaUrl('image-health-outreach.webp')` with `provider: 'local'` and `provider: 's3'`.
+   - Expected Output:
+     - Local: `/media/image-health-outreach.webp`
+     - S3: `https://abuja-resilience-media.s3.af-south-1.amazonaws.com/image-health-outreach.webp`.
+
+5. **Easy Content Editing & Zero-Hardcoding Test**:
+   - Action: Change `tradingName` in `content/organization.json` to `"Zuma Heritage Trust"` and build.
+   - Expected Output: The entire site (Navbar, Hero, Governance, Footer, metadata) updates to "Zuma Heritage Trust" with zero manual component modifications.
+
+6. **In-App Visual Content Studio (/admin) Test**:
+   - Action: Start dev server (`bun run dev`), access `/admin`, select Kuje Area Council, and add a new project ("Solar Grain Milling Outpost", 1,400 beneficiaries).
+   - Expected Output: Changes persist to `content/councils/kuje.json` and immediately reflect on the interactive FCT Map and Council Drawer.
+
+7. **On-Demand Edge Revalidation Test**:
+   - Action: Call `GET /api/revalidate?secret=abuja-resilience-revalidate-2025`.
+   - Expected Output: HTTP 200 `{ "revalidated": true, "now": ... }`.
+
+8. **Multi-Currency Donation & Clipboard Test**:
+   - Action: Open Donation Drawer, toggle NGN, click "Copy Account Number".
+   - Expected Output: Account number copies to clipboard with toast notification, and WhatsApp confirmation link opens with pre-filled transaction parameters.
+
+---
+
+## Assumptions & Contingencies
+
+1. **Local Media Rendering Fallback**:
+   - Assumption: In local development, Cloudinary cloud credentials may not yet be provisioned by the administrator.
+   - Contingency: `resolveMediaUrl` automatically falls back to local assets (`/media/...` and `/branding/...`) if Cloudinary credentials are not configured, ensuring zero broken images or failed renders during local development.
+
+2. **Serverless Filesystem Persistence**:
+   - Assumption: On Vercel, the filesystem is read-only at runtime.
+   - Contingency: The `/admin` Content Studio provides both direct file writes for local development and a "Download Config Archive" feature for production, allowing administrators to export verified JSON bundles for instant Git commits.
+
+3. **Framework Compatibility**:
+   - Assumption: Project uses Next.js 15.x, React 19, and Tailwind CSS v4.
+   - Contingency: All animation components use `motion` (v12) which provides native React 19 concurrent mode support without peer dependency conflicts.

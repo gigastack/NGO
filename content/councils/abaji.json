@@ -1,0 +1,40 @@
+{
+  "id": "abaji",
+  "name": "Abaji Area Council",
+  "headquarters": "Abaji",
+  "terrainType": "River Basin Corridor",
+  "populationServed": 180000,
+  "coordinates": {
+    "lat": 8.4739,
+    "lng": 6.9428
+  },
+  "fieldDispatchLead": {
+    "name": "Fatima Yahaya",
+    "role": "River Basin Fisheries & Emergency Health Lead",
+    "phone": "+234 814 209 6355"
+  },
+  "activeProjects": [
+    {
+      "id": "abaji-proj-gurara-fisheries",
+      "title": "Gurara Basin Fisheries Co-op",
+      "category": "agriculture",
+      "settlementName": "Gurara Riverbank Settlement",
+      "settlementType": "Riverine Fishing Community",
+      "beneficiariesCount": 5100,
+      "status": "active",
+      "description": "Equipping riparian fishing families with solar fish smoking ovens, biodegradable nets, fingerling replenishment ponds, and clean ice preservation units.",
+      "mediaPath": "/media/councils/abaji-gurara.jpg"
+    },
+    {
+      "id": "abaji-proj-pandagi-health",
+      "title": "Pandagi Health Post",
+      "category": "healthcare",
+      "settlementName": "Pandagi Community",
+      "settlementType": "Border Agrarian Outpost",
+      "beneficiariesCount": 6700,
+      "status": "active",
+      "description": "Rural primary clinic providing maternal antenatal care, clean birthing kits, rapid diagnostic testing for river-borne illnesses, and emergency referral logistics.",
+      "mediaPath": "/media/councils/abaji-pandagi.jpg"
+    }
+  ]
+}

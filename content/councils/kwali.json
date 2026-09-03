@@ -1,0 +1,40 @@
+{
+  "id": "kwali",
+  "name": "Kwali Area Council",
+  "headquarters": "Kwali",
+  "terrainType": "Savannah Plains",
+  "populationServed": 260000,
+  "coordinates": {
+    "lat": 8.8719,
+    "lng": 7.0142
+  },
+  "fieldDispatchLead": {
+    "name": "Gabriel Audu",
+    "role": "Savannah Irrigation & Mobile Clinic Supervisor",
+    "phone": "+234 813 670 4911"
+  },
+  "activeProjects": [
+    {
+      "id": "kwali-proj-yangoji-solar-water",
+      "title": "Yangoji Solar Borehole Network",
+      "category": "water_sanitation",
+      "settlementName": "Yangoji Junction",
+      "settlementType": "Savannah Transit Settlement",
+      "beneficiariesCount": 13500,
+      "status": "active",
+      "description": "Multi-stand reticulated solar water system delivering over 35,000 liters daily to households, primary schools, and weekly regional transit market stalls.",
+      "mediaPath": "/media/councils/kwali-yangoji.jpg"
+    },
+    {
+      "id": "kwali-proj-kilankwa-clinic",
+      "title": "Kilankwa Mobile Primary Clinic",
+      "category": "healthcare",
+      "settlementName": "Kilankwa Village",
+      "settlementType": "Dispersed Savannah Hamlet",
+      "beneficiariesCount": 7800,
+      "status": "active",
+      "description": "Bi-weekly all-terrain mobile clinic providing immunization, malaria testing and treatment, hypertensive screening, and health education to remote pastoral homesteads.",
+      "mediaPath": "/media/councils/kwali-kilankwa.jpg"
+    }
+  ]
+}

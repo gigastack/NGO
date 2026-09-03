@@ -1,0 +1,73 @@
+{
+  "ngnAccount": {
+    "bankName": "Guaranty Trust Bank (GTBank)",
+    "accountName": "Abuja Resilience Initiative",
+    "accountNumber": "0123456789",
+    "sortCode": "058152062",
+    "whatsappConfirmationPhone": "+234 803 900 1234"
+  },
+  "domiciliaryAccounts": [
+    {
+      "currency": "USD",
+      "bankName": "Guaranty Trust Bank (GTBank)",
+      "accountName": "Abuja Resilience Initiative - USD Domiciliary",
+      "accountNumber": "0123456790",
+      "swiftBic": "GTBINGLA",
+      "routingIban": "NG36GTBI00000123456790"
+    },
+    {
+      "currency": "EUR",
+      "bankName": "Guaranty Trust Bank (GTBank)",
+      "accountName": "Abuja Resilience Initiative - EUR Domiciliary",
+      "accountNumber": "0123456791",
+      "swiftBic": "GTBINGLA",
+      "routingIban": "NG36GTBI00000123456791"
+    },
+    {
+      "currency": "GBP",
+      "bankName": "Guaranty Trust Bank (GTBank)",
+      "accountName": "Abuja Resilience Initiative - GBP Domiciliary",
+      "accountNumber": "0123456792",
+      "swiftBic": "GTBINGLA",
+      "routingIban": "NG36GTBI00000123456792"
+    }
+  ],
+  "digitalGateways": {
+    "paystackPublicKey": "pk_live_abujaresilienceinitiative_live_demo",
+    "flutterwavePublicKey": "FLWPUBK-e092109840294-X"
+  },
+  "donationTiers": [
+    {
+      "id": "tier-seedling",
+      "amountNgn": 5000,
+      "amountUsd": 15,
+      "label": "Grassroots Seedling",
+      "impactDescription": "Funds a 30-day supply of pediatric micronutrient sachets and basic clean water testing kits for one family in peri-urban Abuja.",
+      "visualAssetKey": "tier-seedling"
+    },
+    {
+      "id": "tier-aquifer",
+      "amountNgn": 15000,
+      "amountUsd": 50,
+      "label": "Aquifer Sustainer",
+      "impactDescription": "Provides 5 bio-sand water filtration units or solar lantern learning kits for children in informal IDP settlements.",
+      "visualAssetKey": "tier-aquifer"
+    },
+    {
+      "id": "tier-resilience",
+      "amountNgn": 50000,
+      "amountUsd": 150,
+      "label": "Community Pillar",
+      "impactDescription": "Supplies maternal clinical delivery kits and solar refrigeration power storage for a rural primary health post.",
+      "visualAssetKey": "tier-resilience"
+    },
+    {
+      "id": "tier-founding-patron",
+      "amountNgn": 150000,
+      "amountUsd": 400,
+      "label": "Civic Vanguard",
+      "impactDescription": "Underwrites one full quarter of community health worker stipends or solar-powered mechanized borehole maintenance.",
+      "visualAssetKey": "tier-founding-patron"
+    }
+  ]
+}

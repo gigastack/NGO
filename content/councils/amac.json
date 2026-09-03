@@ -1,0 +1,51 @@
+{
+  "id": "amac",
+  "name": "Abuja Municipal Area Council",
+  "headquarters": "Garki",
+  "terrainType": "Urban & Peri-urban Valley",
+  "populationServed": 1970000,
+  "coordinates": {
+    "lat": 9.0579,
+    "lng": 7.4951
+  },
+  "fieldDispatchLead": {
+    "name": "Dr. Miriam Danjuma",
+    "role": "Peri-Urban Health & Community Dispatch Director",
+    "phone": "+234 802 331 4590"
+  },
+  "activeProjects": [
+    {
+      "id": "amac-proj-kuchingoro",
+      "title": "Kuchingoro IDP Health Clinic",
+      "category": "idp_resilience",
+      "settlementName": "Kuchingoro Settlement",
+      "settlementType": "Informal IDP Settlement",
+      "beneficiariesCount": 14200,
+      "status": "active",
+      "description": "Continuous daily primary health dispensary, maternal health prenatal checkups, emergency medication triage, and vector control for displaced families in Kuchingoro.",
+      "mediaPath": "/media/councils/amac-kuchingoro.jpg"
+    },
+    {
+      "id": "amac-proj-durumi",
+      "title": "Durumi Youth STEM Lab",
+      "category": "education",
+      "settlementName": "Durumi III Community",
+      "settlementType": "Peri-Urban Settlement",
+      "beneficiariesCount": 3800,
+      "status": "active",
+      "description": "Solar-energized computer learning hub offering coding, digital literacy, vocational tech skills, and peer mentorship to adolescents outside formal school infrastructure.",
+      "mediaPath": "/media/councils/amac-durumi-stem.jpg"
+    },
+    {
+      "id": "amac-proj-karu",
+      "title": "Karu Water Kiosk",
+      "category": "water_sanitation",
+      "settlementName": "Karu Village Outskirts",
+      "settlementType": "High-Density Peri-Urban Outpost",
+      "beneficiariesCount": 18500,
+      "status": "active",
+      "description": "Automated clean water distribution kiosk powered by rooftop photovoltaic panels, dispensing reverse-osmosis treated drinking water at non-profit tariff.",
+      "mediaPath": "/media/councils/amac-karu-water.jpg"
+    }
+  ]
+}

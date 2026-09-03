@@ -1,0 +1,40 @@
+{
+  "id": "bwari",
+  "name": "Bwari Area Council",
+  "headquarters": "Bwari",
+  "terrainType": "Granite Hills & Pottery Basins",
+  "populationServed": 580000,
+  "coordinates": {
+    "lat": 9.2789,
+    "lng": 7.3756
+  },
+  "fieldDispatchLead": {
+    "name": "Haruna Bwari",
+    "role": "Artisan Cooperatives & Water Field Engineer",
+    "phone": "+234 803 442 8812"
+  },
+  "activeProjects": [
+    {
+      "id": "bwari-proj-ushafa-pottery",
+      "title": "Ushafa Ceramic Artisan Co-op",
+      "category": "agriculture",
+      "settlementName": "Ushafa Pottery Village",
+      "settlementType": "Traditional Artisan Hamlet",
+      "beneficiariesCount": 5400,
+      "status": "active",
+      "description": "Revitalizing ancestral Gbagyi ceramic techniques with energy-efficient smokeless kilns, solar clay processing machinery, and cooperative direct-to-fair-trade sales channels.",
+      "mediaPath": "/media/councils/bwari-ushafa.jpg"
+    },
+    {
+      "id": "bwari-proj-solar-water",
+      "title": "Bwari Solar Water Station",
+      "category": "water_sanitation",
+      "settlementName": "Kubwa Extension II",
+      "settlementType": "Peri-Urban Foothill Community",
+      "beneficiariesCount": 16200,
+      "status": "active",
+      "description": "Deep aquifer solar borehole drilling through crystalline basement granite, with 40,000-liter overhead storage tanks feeding gravity-flow community distribution taps.",
+      "mediaPath": "/media/councils/bwari-solar-water.jpg"
+    }
+  ]
+}

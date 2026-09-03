@@ -1,0 +1,62 @@
+[
+  {
+    "id": "dispatch-001",
+    "platform": "x",
+    "authorName": "Abuja Resilience Initiative",
+    "authorHandle": "@AbujaResilience",
+    "content": "Our solar-mechanized borehole network in Yangoji (Kwali Area Council) has officially passed 1.2 million liters pumped this dry season! 100% powered by the FCT sun. ☀️💧 #GrassrootsResilience #WaterIsLife #AbujaCommunity",
+    "timestamp": "2025-02-28T09:15:00Z",
+    "mediaUrl": "/media/social-kwali-borehole.jpg",
+    "permalink": "https://x.com/AbujaResilience/status/1895400000000000001",
+    "engagement": {
+      "likes": 342,
+      "shares": 89,
+      "views": 14200
+    }
+  },
+  {
+    "id": "dispatch-002",
+    "platform": "instagram",
+    "authorName": "Abuja Resilience Initiative",
+    "authorHandle": "@abujaresilience",
+    "content": "Field notes from Ushafa Pottery Village, Bwari: Today 45 women artisans graduated from the sustainable kiln & solar water cooperative program. Clay traditions preserved, clean water guaranteed. 🏺✨ Photo by Field Lead Haruna Bwari.",
+    "timestamp": "2025-02-24T14:30:00Z",
+    "mediaUrl": "/media/social-ushafa-pottery.jpg",
+    "permalink": "https://instagram.com/p/DFushafaFieldDispatch02",
+    "engagement": {
+      "likes": 612,
+      "shares": 44,
+      "views": 5890
+    }
+  },
+  {
+    "id": "dispatch-003",
+    "platform": "linkedin",
+    "authorName": "Abuja Resilience Initiative (ARI)",
+    "authorHandle": "abuja-resilience-initiative",
+    "content": "Fiscal integrity update: We have published our 2024 Audited Financial Allocation report. 84% directly to grassroots programs across AMAC, Bwari, Gwagwalada, Kuje, Kwali & Abaji. Transparency isn't optional; it is our foundation. Full report available via our governance portal.",
+    "timestamp": "2025-02-18T11:00:00Z",
+    "mediaUrl": "/media/social-governance-audit.jpg",
+    "permalink": "https://linkedin.com/company/abuja-resilience-initiative/posts/audit-2024",
+    "engagement": {
+      "likes": 278,
+      "shares": 56,
+      "views": 8420
+    }
+  },
+  {
+    "id": "dispatch-004",
+    "platform": "youtube",
+    "authorName": "Abuja Resilience Initiative",
+    "authorHandle": "@AbujaResilienceOrg",
+    "content": "WATCH: 'Clay, Code & Harvest' — How young farmers in Paiko (Gwagwalada Area Council) deployed low-cost soil moisture sensors powered by mini-solar panels to safeguard drought-prone harvests. Full 7-minute mini-documentary streaming now.",
+    "timestamp": "2025-02-12T16:00:00Z",
+    "mediaUrl": "/media/doc-clay-thumb.jpg",
+    "permalink": "https://youtube.com/watch?v=abujaDocPaikoAgro01",
+    "engagement": {
+      "likes": 890,
+      "shares": 134,
+      "views": 22400
+    }
+  }
+]

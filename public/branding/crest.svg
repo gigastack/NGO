@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" fill="none" role="img" aria-label="Abuja Resilience Initiative Sacred Earth Crest">
+  <defs>
+    <linearGradient id="crest-bg-grad" x1="50" y1="0" x2="50" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1C3F35" />
+      <stop offset="60%" stop-color="#152F28" />
+      <stop offset="100%" stop-color="#111113" />
+    </linearGradient>
+
+    <linearGradient id="crest-gold-grad" x1="0" y1="0" x2="100" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F3E5AB" />
+      <stop offset="45%" stop-color="#D49B35" />
+      <stop offset="100%" stop-color="#B85D36" />
+    </linearGradient>
+
+    <linearGradient id="crest-terra-grad" x1="50" y1="40" x2="50" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#D49B35" />
+      <stop offset="50%" stop-color="#B85D36" />
+      <stop offset="100%" stop-color="#70321A" />
+    </linearGradient>
+
+    <linearGradient id="crest-rock-grad" x1="50" y1="28" x2="50" y2="75" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4A4540" />
+      <stop offset="50%" stop-color="#2A2725" />
+      <stop offset="100%" stop-color="#111113" />
+    </linearGradient>
+
+    <linearGradient id="crest-water-grad" x1="20" y1="80" x2="80" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FAF8F5" />
+      <stop offset="50%" stop-color="#8BB8A8" />
+      <stop offset="100%" stop-color="#1C3F35" />
+    </linearGradient>
+
+    <filter id="crest-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <clipPath id="crest-shield-clip">
+      <path d="M50 4 C78 4, 94 12, 94 36 C94 76, 50 114, 50 114 C50 114, 6 76, 6 36 C6 12, 22 4, 50 4 Z" />
+    </clipPath>
+  </defs>
+
+  <!-- Outer Shield Shadow -->
+  <path d="M50 6 C79 6, 96 14, 96 38 C96 79, 50 117, 50 117 C50 117, 4 79, 4 38 C4 14, 21 6, 50 6 Z" fill="#000000" opacity="0.4" />
+
+  <!-- Shield Base Background with Clip -->
+  <g clip-path="url(#crest-shield-clip)">
+    <rect width="100" height="120" fill="url(#crest-bg-grad)" />
+
+    <!-- Radiating Sunburst / Dawn Rays from Zenith -->
+    <g opacity="0.35">
+      <line x1="50" y1="18" x2="10" y2="4" stroke="#D49B35" stroke-width="1.2" />
+      <line x1="50" y1="18" x2="24" y2="0" stroke="#D49B35" stroke-width="1.2" />
+      <line x1="50" y1="18" x2="38" y2="-4" stroke="#D49B35" stroke-width="1.2" />
+      <line x1="50" y1="18" x2="50" y2="-6" stroke="#D49B35" stroke-width="1.5" />
+      <line x1="50" y1="18" x2="62" y2="-4" stroke="#D49B35" stroke-width="1.2" />
+      <line x1="50" y1="18" x2="76" y2="0" stroke="#D49B35" stroke-width="1.2" />
+      <line x1="50" y1="18" x2="90" y2="4" stroke="#D49B35" stroke-width="1.2" />
+      <line x1="50" y1="18" x2="98" y2="18" stroke="#D49B35" stroke-width="1" />
+      <line x1="50" y1="18" x2="2" y2="18" stroke="#D49B35" stroke-width="1" />
+    </g>
+
+    <!-- Radiating Solar Orb -->
+    <circle cx="50" cy="22" r="14" fill="#D49B35" opacity="0.25" filter="url(#crest-glow)" />
+    <circle cx="50" cy="22" r="9" fill="#D49B35" opacity="0.6" />
+    <circle cx="50" cy="22" r="5" fill="#FAF8F5" />
+
+    <!-- Ancient Monolith Silhouette (Zuma/Aso Profile) -->
+    <!-- Back Rock Layer -->
+    <path d="M28 66 L34 40 C38 34, 46 32, 54 32 C62 32, 68 35, 71 42 L76 66 Z" fill="#1C3F35" opacity="0.7" />
+
+    <!-- Main Monolith Core -->
+    <path d="M25 68 C27 46, 32 36, 44 34 C50 33, 56 33, 62 36 C70 40, 74 48, 77 68 Z" fill="url(#crest-rock-grad)" />
+
+    <!-- Monolith Facet / Terracotta Golden Hour Highlight -->
+    <path d="M48 33.5 C54 33.5, 60 35, 64 38 C70 42, 73 50, 76 68 L50 68 Z" fill="url(#crest-terra-grad)" opacity="0.85" />
+    <path d="M49 33.5 L51 68" stroke="#D49B35" stroke-width="0.8" opacity="0.7" />
+
+    <!-- Vertical Monolith Striations / Fissure Details -->
+    <line x1="39" y1="41" x2="38" y2="67" stroke="#111113" stroke-width="0.7" opacity="0.6" />
+    <line x1="44" y1="36" x2="43" y2="67" stroke="#111113" stroke-width="0.7" opacity="0.6" />
+    <line x1="58" y1="37" x2="59" y2="67" stroke="#D49B35" stroke-width="0.7" opacity="0.5" />
+    <line x1="67" y1="44" x2="69" y2="67" stroke="#FAF8F5" stroke-width="0.5" opacity="0.4" />
+
+    <!-- Terracotta Foothills / Plateau Foundation -->
+    <path d="M12 76 Q30 67 50 71 Q70 75 88 69 L88 78 Q68 82 50 78 Q30 74 12 80 Z" fill="#B85D36" />
+
+    <!-- Triple Aquifer Water Ribbons (Flowing Rivers of FCT) -->
+    <!-- Ribbon 1: Deep Savannah Water -->
+    <path d="M10 81 C26 73, 42 85, 58 79 C74 73, 84 81, 92 85 L92 90 C84 86, 72 78, 56 84 C40 90, 24 78, 10 86 Z" fill="#1C3F35" />
+
+    <!-- Ribbon 2: Glistening Crest Stream (Ochre-Tinted) -->
+    <path d="M8 88 C24 81, 40 93, 56 87 C72 81, 84 88, 94 92 L94 96 C82 91, 70 85, 54 91 C38 97, 22 86, 8 93 Z" fill="url(#crest-gold-grad)" />
+
+    <!-- Ribbon 3: Pure Clean Spring Water (Parchment White) -->
+    <path d="M12 95 C28 89, 44 99, 60 94 C74 89, 84 94, 90 98 L90 102 C82 98, 72 93, 58 98 C42 103, 26 94, 12 100 Z" fill="url(#crest-water-grad)" />
+
+    <!-- Bottom Anchor Star / Diamond of Community Trust -->
+    <polygon points="50,103 52.5,108 58,108 53.5,111 55,116 50,113 45,116 46.5,111 42,108 47.5,108" fill="#D49B35" />
+  </g>
+
+  <!-- Sacred Crest Shield Outlines (Afro-Modern Geometric Borders) -->
+  <!-- Inner Fine Filigree Border -->
+  <path d="M50 8 C75 8, 90 15, 90 37 C90 73, 50 110, 50 110 C50 110, 10 73, 10 37 C10 15, 25 8, 50 8 Z" fill="none" stroke="#D49B35" stroke-width="1.2" stroke-dasharray="2 1.5" opacity="0.8" />
+
+  <!-- Outer Heavy Shield Frame in Ochre-Terracotta -->
+  <path d="M50 4 C78 4, 94 12, 94 36 C94 76, 50 114, 50 114 C50 114, 6 76, 6 36 C6 12, 22 4, 50 4 Z" fill="none" stroke="url(#crest-gold-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Top Crown Accent Knot -->
+  <circle cx="50" cy="4" r="2.5" fill="#FAF8F5" stroke="#B85D36" stroke-width="1" />
+</svg>

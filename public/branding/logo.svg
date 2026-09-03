@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 80" fill="none" role="img" aria-label="Abuja Resilience Initiative Logo">
+  <defs>
+    <linearGradient id="logo-gold-grad" x1="0" y1="0" x2="60" y2="70" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F3E5AB" />
+      <stop offset="50%" stop-color="#D49B35" />
+      <stop offset="100%" stop-color="#B85D36" />
+    </linearGradient>
+
+    <linearGradient id="logo-terra-grad" x1="0" y1="20" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#D49B35" />
+      <stop offset="50%" stop-color="#B85D36" />
+      <stop offset="100%" stop-color="#70321A" />
+    </linearGradient>
+
+    <linearGradient id="logo-bg-grad" x1="30" y1="0" x2="30" y2="70" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1C3F35" />
+      <stop offset="70%" stop-color="#152F28" />
+      <stop offset="100%" stop-color="#111113" />
+    </linearGradient>
+
+    <linearGradient id="logo-line-grad" x1="84" y1="0" x2="380" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#B85D36" />
+      <stop offset="35%" stop-color="#D49B35" />
+      <stop offset="85%" stop-color="#1C3F35" />
+      <stop offset="100%" stop-color="#FAF8F5" stop-opacity="0" />
+    </linearGradient>
+
+    <clipPath id="logo-crest-clip">
+      <path d="M30 6 C48 6, 58 11, 58 26 C58 51, 30 74, 30 74 C30 74, 2 51, 2 26 C2 11, 12 6, 30 6 Z" />
+    </clipPath>
+  </defs>
+
+  <!-- ==================== EMBLEM (Left side) ==================== -->
+  <g id="emblem-group" transform="translate(6, 0)">
+    <!-- Shadow -->
+    <path d="M30 8 C48 8, 59 13, 59 28 C59 53, 30 76, 30 76 C30 76, 1 53, 1 28 C1 13, 12 8, 30 8 Z" fill="#000000" opacity="0.25" />
+
+    <!-- Crest Fill -->
+    <g clip-path="url(#logo-crest-clip)">
+      <rect width="60" height="80" fill="url(#logo-bg-grad)" />
+
+      <!-- Radiating Dawn Rays -->
+      <g opacity="0.4">
+        <line x1="30" y1="14" x2="6" y2="4" stroke="#D49B35" stroke-width="0.8" />
+        <line x1="30" y1="14" x2="16" y2="0" stroke="#D49B35" stroke-width="0.8" />
+        <line x1="30" y1="14" x2="30" y2="-4" stroke="#D49B35" stroke-width="1" />
+        <line x1="30" y1="14" x2="44" y2="0" stroke="#D49B35" stroke-width="0.8" />
+        <line x1="30" y1="14" x2="54" y2="4" stroke="#D49B35" stroke-width="0.8" />
+      </g>
+
+      <!-- Solar Orb -->
+      <circle cx="30" cy="16" r="6" fill="#D49B35" opacity="0.7" />
+      <circle cx="30" cy="16" r="3" fill="#FAF8F5" />
+
+      <!-- Zuma Monolith Silhouette -->
+      <path d="M14 46 C16 31, 20 25, 27 24 C31 23.5, 35 23.5, 39 25 C45 28, 47 33, 49 46 Z" fill="#111113" />
+      <path d="M29 24.5 C33 24.5, 37 25.5, 40 27 C44 30, 46 35, 48 46 L31 46 Z" fill="url(#logo-terra-grad)" opacity="0.9" />
+
+      <!-- FCT Aquifer Ribbons -->
+      <path d="M6 53 C16 48, 26 56, 36 52 C46 48, 52 53, 56 56 L56 59 C51 56, 43 51, 34 55 C24 59, 14 51, 6 56 Z" fill="#1C3F35" />
+      <path d="M5 58 C15 53, 25 61, 35 57 C45 53, 52 58, 57 61 L57 64 C50 60, 42 56, 33 60 C23 64, 13 56, 5 61 Z" fill="url(#logo-gold-grad)" />
+      <path d="M8 63 C18 59, 28 66, 38 62 C46 59, 52 62, 55 65 L55 68 C50 65, 44 61, 35 65 C25 68, 15 62, 8 66 Z" fill="#FAF8F5" opacity="0.9" />
+    </g>
+
+    <!-- Inner Filigree Outline -->
+    <path d="M30 8.5 C46 8.5, 55 13, 55 27 C55 49, 30 71.5, 30 71.5 C30 71.5, 5 49, 5 27 C5 13, 14 8.5, 30 8.5 Z" fill="none" stroke="#D49B35" stroke-width="0.8" stroke-dasharray="1.5 1" opacity="0.85" />
+
+    <!-- Outer Gold Frame -->
+    <path d="M30 6 C48 6, 58 11, 58 26 C58 51, 30 74, 30 74 C30 74, 2 51, 2 26 C2 11, 12 6, 30 6 Z" fill="none" stroke="url(#logo-gold-grad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+
+    <!-- Crown Dot -->
+    <circle cx="30" cy="6" r="1.5" fill="#FAF8F5" stroke="#B85D36" stroke-width="0.8" />
+  </g>
+
+  <!-- ==================== TYPOGRAPHIC WORDMARK ==================== -->
+  <!-- Primary Brand Name -->
+  <text x="82" y="34" font-family="system-ui, -apple-system, 'Cabinet Grotesk', 'Satoshi', 'Inter', 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="19" letter-spacing="1.8" fill="#111113">ABUJA RESILIENCE INITIATIVE</text>
+
+  <!-- Brand Accent Separator Line -->
+  <line x1="82" y1="44" x2="370" y2="44" stroke="url(#logo-line-grad)" stroke-width="1.6" stroke-linecap="round" />
+  <circle cx="82" cy="44" r="1.8" fill="#B85D36" />
+
+  <!-- Subtitle / Descriptive Civic Endorsement -->
+  <text x="88" y="58" font-family="system-ui, -apple-system, 'Inter', 'Satoshi', 'Segoe UI', sans-serif" font-weight="600" font-size="9.5" letter-spacing="2.8" fill="#7A736B">FCT COMMUNITY TRUST <tspan fill="#D49B35">&amp;</tspan> CIVIC ENDOWMENT</text>
+</svg>

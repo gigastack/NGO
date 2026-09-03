@@ -1,0 +1,40 @@
+{
+  "cacNumber": "CAC/IT/NO/148291",
+  "scumlNumber": "SCUML-RN: 2023-09182",
+  "firsTin": "23910294-0001",
+  "taxExemptionCitation": "Section 23 of Companies Income Tax Act (CITA) 2004",
+  "incorporationDate": "2018-04-16",
+  "trustees": [
+    {
+      "name": "Hon. Dr. Amina Bello",
+      "role": "Chairperson, Board of Trustees",
+      "qualification": "MBBS, MPH (Epidemiology, Johns Hopkins)",
+      "bio": "Public health pioneer with over two decades of experience coordinating regional maternal health and humanitarian rapid responses across Northern Nigeria and the FCT peri-urban fringe."
+    },
+    {
+      "name": "Engr. Chidi Okafor",
+      "role": "Trustee & Director of Infrastructure",
+      "qualification": "FNSE, COREN, M.Eng Civil Engineering",
+      "bio": "Veteran structural engineer and hydro-geologist specializing in decentralized solar aquifer extraction, flood barrier engineering, and sustainable earth construction."
+    },
+    {
+      "name": "Hajia Zainab Kuje",
+      "role": "Trustee & Community Relations Lead",
+      "qualification": "B.Sc Sociology, M.Sc Community Development",
+      "bio": "Native grassroots community mobilizer from Kuje Area Council championing indigenous women artisan cooperatives, agro-forestry value chains, and IDP social cohesion."
+    },
+    {
+      "name": "Barr. Tunde Adeleke",
+      "role": "Trustee & Legal Governance Advisor",
+      "qualification": "LL.B, B.L, LL.M (Human Rights & International Humanitarian Law)",
+      "bio": "Senior civil liberties advocate and compliance attorney ensuring rigorous fiscal fidelity, anti-money laundering conformance, and international NGO accountability."
+    }
+  ],
+  "auditedFinancialYear": "2024",
+  "financialAllocation": {
+    "programsPercent": 84,
+    "logisticsPercent": 11,
+    "governancePercent": 5
+  },
+  "annualReportPdfUrl": "/governance/annual-report-2024.pdf"
+}
