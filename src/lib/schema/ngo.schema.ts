@@ -260,7 +260,22 @@ export const NGOConfigSchema = z.object({
   banking: BankingSchema,
   media: MediaSchema,
   socialFeed: z.array(SocialFeedItemSchema),
-  councils: z.record(FCTAreaCouncilIdSchema, FCTAreaCouncilDataSchema),
+  councils: z
+    .record(FCTAreaCouncilIdSchema, FCTAreaCouncilDataSchema)
+    .refine(
+      (councils) => {
+        const required: FCTAreaCouncilId[] = [
+          "amac",
+          "bwari",
+          "gwagwalada",
+          "kuje",
+          "kwali",
+          "abaji",
+        ];
+        return required.every((id) => id in councils && councils[id] !== undefined);
+      },
+      { message: "All 6 FCT Area Councils (amac, bwari, gwagwalada, kuje, kwali, abaji) must be provided." }
+    ),
 });
 export type NGOConfig = z.infer<typeof NGOConfigSchema>;
 

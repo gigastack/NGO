@@ -23,7 +23,7 @@
       "beneficiariesCount": 5400,
       "status": "active",
       "description": "Revitalizing ancestral Gbagyi ceramic techniques with energy-efficient smokeless kilns, solar clay processing machinery, and cooperative direct-to-fair-trade sales channels.",
-      "mediaPath": "/media/councils/bwari-ushafa.jpg"
+      "mediaPath": "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=800&q=80"
     },
     {
       "id": "bwari-proj-solar-water",
@@ -34,7 +34,7 @@
       "beneficiariesCount": 16200,
       "status": "active",
       "description": "Deep aquifer solar borehole drilling through crystalline basement granite, with 40,000-liter overhead storage tanks feeding gravity-flow community distribution taps.",
-      "mediaPath": "/media/councils/bwari-solar-water.jpg"
+      "mediaPath": "https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80"
     }
   ]
 }

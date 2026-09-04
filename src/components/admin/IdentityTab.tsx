@@ -42,10 +42,11 @@ export const IdentityTab: React.FC<IdentityTabProps> = ({ data, onChange }) => {
           </h3>
 
           <div>
-            <label className="block text-xs font-medium text-[#A1A1AA] mb-1">
+            <label htmlFor="legal-name" className="block text-xs font-medium text-[#A1A1AA] mb-1">
               Legal Incorporated Name
             </label>
             <input
+              id="legal-name"
               type="text"
               value={data.legalName}
               onChange={(e) => handleChange("legalName", e.target.value)}
@@ -56,10 +57,11 @@ export const IdentityTab: React.FC<IdentityTabProps> = ({ data, onChange }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium text-[#A1A1AA] mb-1">
+              <label htmlFor="trading-name" className="block text-xs font-medium text-[#A1A1AA] mb-1">
                 Trading / Brand Name
               </label>
               <input
+                id="trading-name"
                 type="text"
                 value={data.tradingName}
                 onChange={(e) => handleChange("tradingName", e.target.value)}

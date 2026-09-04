@@ -24,8 +24,8 @@ const DOCUMENTARY_REELS: MiniDocReel[] = [
     actLabel: "Act I · Civic Horizon",
     duration: "60s Reel",
     councilTag: "AMAC / Bwari",
-    thumbnailPath: "/media/image-monolith-civic.svg",
-    videoPath: "/media/video-fct-overview.mp4",
+    thumbnailPath: "https://images.unsplash.com/photo-1589824783837-6169889fa20f?auto=format&fit=crop&w=1200&q=80",
+    videoPath: "https://res.cloudinary.com/demo/video/upload/dog.mp4",
     captionSummary:
       "A cinematic investigation into grassroots community health workers and informal settlements thriving under the monolithic gaze of Abuja's federal architecture.",
     tagline: "Bridging the divide between civic centers and frontline settlements.",
@@ -36,8 +36,8 @@ const DOCUMENTARY_REELS: MiniDocReel[] = [
     actLabel: "Act II · Rural Aquifers",
     duration: "60s Reel",
     councilTag: "Kwali & Kuje",
-    thumbnailPath: "/media/image-health-outreach.svg",
-    videoPath: "/media/video-rural-health-water.mp4",
+    thumbnailPath: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1200&q=80",
+    videoPath: "https://res.cloudinary.com/demo/video/upload/rafting.mp4",
     captionSummary:
       "Deep aquifer solar drilling powering localized maternal health clinics across rural agrarian belts, ensuring sterile water security during critical deliveries.",
     tagline: "Solar boreholes powering uninterrupted maternal clinical care.",
@@ -48,8 +48,8 @@ const DOCUMENTARY_REELS: MiniDocReel[] = [
     actLabel: "Act III · Youth Innovation",
     duration: "60s Reel",
     councilTag: "Bwari / AMAC",
-    thumbnailPath: "/media/image-youth-education.svg",
-    videoPath: "/media/video-youth-empowerment.mp4",
+    thumbnailPath: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=1200&q=80",
+    videoPath: "https://res.cloudinary.com/demo/video/upload/sea_turtle.mp4",
     captionSummary:
       "Ushafa pottery traditions synthesized with solar-powered STEM micro-labs, equipping next-generation youth with digital fabrication and agritech telemetry.",
     tagline: "Ancestral craftsmanship meets decentralized clean tech training.",
@@ -143,7 +143,7 @@ export function MiniDocumentaryHub() {
 
                 {/* Play Button Overlay */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#FAF8F5]/90 text-[var(--color-granite-deep,#111113)] flex items-center justify-center shadow-card group-hover:bg-[var(--color-terracotta-primary,#B85D36)] group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#FAF8F5]/90 text-[var(--color-granite-deep,#111113)] flex items-center justify-center shadow-md group-hover:bg-[var(--color-terracotta-primary,#B85D36)] group-hover:text-white group-hover:scale-110 transition-all duration-300">
                     <svg
                       className="w-5 h-5 sm:w-6 sm:h-6 ml-0.5 fill-current"
                       viewBox="0 0 24 24"

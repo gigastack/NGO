@@ -23,7 +23,7 @@
       "beneficiariesCount": 9800,
       "status": "active",
       "description": "Deep 120-meter geological aquifer well serving pastoralist and farming communities with mineral-pure drinking water and livestock watering troughs.",
-      "mediaPath": "/media/councils/kuje-rubochi.jpg"
+      "mediaPath": "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=800&q=80"
     },
     {
       "id": "kuje-proj-gaube-agroforestry",
@@ -34,7 +34,7 @@
       "beneficiariesCount": 6200,
       "status": "active",
       "description": "Restoring native shea and locust bean forest canopies through indigenous tree nurseries, beekeeping apiculture apiaries, and women-led organic honey processing.",
-      "mediaPath": "/media/councils/kuje-gaube.jpg"
+      "mediaPath": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80"
     }
   ]
 }

@@ -21,7 +21,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-[var(--color-parchment-ground)] text-[var(--color-granite-deep)] selection:bg-[var(--color-terracotta-surface)] selection:text-[var(--color-terracotta-primary)] antialiased">
-        {/* IMPECCABLE DIRECTION CONTRACT: Warm Afro-Modernism | Abuja Resilience Initiative */}
+        <div dangerouslySetInnerHTML={{ __html: "<!-- IMPECCABLE DIRECTION CONTRACT: Warm Afro-Modernism | Abuja Resilience Initiative -->" }} style={{ display: "contents" }} />
         {children}
       </body>
     </html>

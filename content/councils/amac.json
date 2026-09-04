@@ -23,7 +23,7 @@
       "beneficiariesCount": 14200,
       "status": "active",
       "description": "Continuous daily primary health dispensary, maternal health prenatal checkups, emergency medication triage, and vector control for displaced families in Kuchingoro.",
-      "mediaPath": "/media/councils/amac-kuchingoro.jpg"
+      "mediaPath": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80"
     },
     {
       "id": "amac-proj-durumi",
@@ -34,7 +34,7 @@
       "beneficiariesCount": 3800,
       "status": "active",
       "description": "Solar-energized computer learning hub offering coding, digital literacy, vocational tech skills, and peer mentorship to adolescents outside formal school infrastructure.",
-      "mediaPath": "/media/councils/amac-durumi-stem.jpg"
+      "mediaPath": "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=800&q=80"
     },
     {
       "id": "amac-proj-karu",
@@ -45,7 +45,7 @@
       "beneficiariesCount": 18500,
       "status": "active",
       "description": "Automated clean water distribution kiosk powered by rooftop photovoltaic panels, dispensing reverse-osmosis treated drinking water at non-profit tariff.",
-      "mediaPath": "/media/councils/amac-karu-water.jpg"
+      "mediaPath": "https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&w=800&q=80"
     }
   ]
 }

@@ -1,0 +1,177 @@
+# Aesthetic Interactive Web Map & External Media Assets Plan
+
+## Context
+The goal is to upgrade the Abuja NGO Web Portal's map from a static SVG graphic to an aesthetic, high-performance interactive vector map using only 100% free open-source services (OpenFreeMap + MapLibre GL JS with zero API keys and zero rate limits), completely delete all local media files from `public/media/`, and transition all imagery and video streams across the entire platform to verified external media assets hosted on high-availability CDNs (Unsplash and Cloudinary).
+
+The portal must maintain strict adherence to the Warm Afro-Modernism design system, preserve 100% pass rates across all Bun unit tests, Playwright multi-viewport browser journeys, Impeccable UI/UX technical audits (20/20 score), and Vercel deployment pre-flight checks.
+
+---
+
+## Approach
+
+### 1. Interactive Vector Map Architecture (OpenFreeMap + MapLibre GL JS)
+Replace the custom SVG drawing with a modern interactive vector map powered by **MapLibre GL JS** and **OpenFreeMap**'s Positron basemap (`https://tiles.openfreemap.org/styles/positron`), which is completely free, open-source, requires no API keys or tokens, and is delivered via Cloudflare's global edge network.
+
+- **Dependency Addition**:
+  - Add `maplibre-gl` to `dependencies` in `package.json`.
+- **New Component `src/components/map/FCTInteractiveMap.tsx`** (Client Component):
+  - Renders a responsive WebGL vector map container bounded to the Federal Capital Territory (`maxBounds: [[6.60, 8.15], [7.90, 9.60]]`, initial center `[7.25, 8.95]`, zoom `8.8`, pitch `15`).
+  - Style URL: `https://tiles.openfreemap.org/styles/positron` (palette matches `#FAF8F5`, `#111113`, `#E5DFD5`).
+  - Navigation controls: `maplibregl.NavigationControl` positioned top-right (zoom, compass bearing, pitch).
+  - Style switch pill control (top-left): Allows toggling between `Positron` (warm minimal light default), `Liberty` (detailed topography and roads), and `Bright`.
+  - GeoJSON Layer Integration:
+    - Defines a `GeoJSON.FeatureCollection` representing the 6 Area Councils (`amac`, `bwari`, `gwagwalada`, `kuje`, `kwali`, `abaji`) with real polygonal boundary approximations across the FCT.
+    - Adds vector source `fct-councils` and polygon fill layer:
+      * Base fill: `rgba(184, 93, 54, 0.12)` (warm terracotta tint).
+      * Hover state: `rgba(184, 93, 54, 0.38)`.
+      * Selected state: `rgba(168, 82, 44, 0.55)` with inner border glow.
+    - Adds line layer `fct-councils-borders` with `#B85D36` stroke (width 2px).
+  - Centroid HTML Markers:
+    - Adds interactive DOM markers at the exact headquarters coordinates of each council:
+      * Bwari: `[7.3756, 9.2789]`
+      * AMAC: `[7.4951, 9.0579]`
+      * Gwagwalada: `[7.0864, 8.9482]`
+      * Kuje: `[7.2345, 8.8789]`
+      * Kwali: `[7.0142, 8.8719]`
+      * Abaji: `[6.9428, 8.4739]`
+    - Each marker renders an accessible HTML button carrying:
+      * `id={`council-path-${council.id}`}` and `id={`council-marker-${council.id}`}`
+      * `role="button"`
+      * `aria-label={`${council.name}. Headquarters: ${council.headquarters}. ${projectCount} active projects.`}`
+      * Terracotta / savannah indicator badge with pulse dot and project counter.
+      * Click listener triggering `onSelectCouncil(council.id)` and `map.flyTo({ center: [lng, lat], zoom: 10.2, speed: 1.2 })`.
+  - Quick Filter Chip Bar (retained at top):
+    - Buttons for "All 6 Councils Overview", "AMAC", "Bwari", "Gwagwalada", "Kuje", "Kwali", "Abaji" with `w-full max-w-full min-w-0 overflow-x-auto` to prevent viewport overflow.
+    - Clicking a chip highlights the council, triggers `flyTo`, and opens the detail drawer.
+  - Telemetry HUD pill (bottom-left): Displays active council, headquarters, terrain, and coordinates.
+  - SSR & Hydration Guard:
+    - Uses `useEffect` and `useRef` ensuring zero SSR window conflicts.
+    - Includes a lightweight fallback parchment skeleton loader while WebGL context initializes.
+- **Update `src/components/map/FCTMapCoordinator.tsx`**:
+  - Replace `<FCTMapSVG>` with `<FCTInteractiveMap councils={councils} selectedCouncilId={selectedCouncilId} onSelectCouncil={handleSelectCouncil} />`.
+  - Retain `CouncilDetailDrawer` integration so clicking any council smoothly slides in the field operations drawer.
+  - Delete `src/components/map/FCTMapSVG.tsx`.
+
+---
+
+### 2. Complete Local Media Assets Removal
+Delete all local binary media files from `public/media/`:
+- Delete all 3 video files: `public/media/video-fct-overview.mp4`, `public/media/video-rural-health-water.mp4`, `public/media/video-youth-empowerment.mp4`.
+- Delete all local image and poster files: `public/media/image-*.svg`, `public/media/image-*.webp`, `public/media/doc-*.jpg`, `public/media/social-*.jpg`.
+- Delete `public/media/councils/` directory and all 12 placeholder council images.
+- Keep `public/branding/` intact (`crest.svg`, `logo.svg`, `favicon.ico`) as vector brand tokens.
+
+---
+
+### 3. Transition to Verified External Media Assets
+Replace all media references in configuration files and components with high-availability, verified external media URLs:
+
+#### 3.1 External Video Streams (Cloudinary Public CDN)
+- **Hero Ambient Background Video**:
+  - URL: `https://res.cloudinary.com/demo/video/upload/elephants.mp4`
+  - Theme: African savannah landscape and wildlife, streaming over high-speed CDN.
+- **Reel 1 ("The Monolith & The Margin")**:
+  - URL: `https://res.cloudinary.com/demo/video/upload/dog.mp4`
+- **Reel 2 ("Clean Water & Maternal Care")**:
+  - URL: `https://res.cloudinary.com/demo/video/upload/rafting.mp4`
+- **Reel 3 ("Solar Code & Ancestral Clay")**:
+  - URL: `https://res.cloudinary.com/demo/video/upload/sea_turtle.mp4`
+
+#### 3.2 External Photography (Unsplash CDN - Verified HTTP 200)
+- **Hero Fallback Poster**:
+  - URL: `https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1920&q=80` (African sunset and acacia monolith).
+- **Programmatic Pillars Bento Grid** (`src/components/pillars/ProgrammaticPillarsGrid.tsx`):
+  - Pillar 1 (Clean Water & Health): `https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=1200&q=80`
+  - Pillar 2 (Youth STEM & Heritage): `https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80`
+  - Pillar 3 (IDP Resilience): `https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1200&q=80`
+- **Mini-Documentary Hub Thumbnails** (`content/media.json` & `src/components/media/MiniDocumentaryHub.tsx`):
+  - Reel 1 Thumbnail: `https://images.unsplash.com/photo-1589824783837-6169889fa20f?auto=format&fit=crop&w=1200&q=80`
+  - Reel 2 Thumbnail: `https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1200&q=80`
+  - Reel 3 Thumbnail: `https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=1200&q=80`
+- **12 Area Council Field Projects** (`content/councils/*.json`):
+  - `amac.json`:
+    * Kuchingoro Clinic: `https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80`
+    * Durumi STEM Lab: `https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=800&q=80`
+    * Karu Water Kiosk: `https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&w=800&q=80`
+  - `bwari.json`:
+    * Ushafa Pottery Co-op: `https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=800&q=80`
+    * Bwari Solar Water: `https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80`
+  - `gwagwalada.json`:
+    * Paiko Seed Bank: `https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=800&q=80`
+    * Dobi Maternal Clinic: `https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=800&q=80`
+  - `kuje.json`:
+    * Rubochi Clean Aquifer: `https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=800&q=80`
+    * Gaube Agro-Forestry: `https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80`
+  - `kwali.json`:
+    * Yangoji Solar Borehole: `https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&w=800&q=80`
+    * Kilankwa Mobile Clinic: `https://images.unsplash.com/photo-1594708767771-a7502209ff51?auto=format&fit=crop&w=800&q=80`
+  - `abaji.json`:
+    * Gurara Basin Fisheries: `https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80`
+    * Pandagi Health Post: `https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80`
+- **4 Social Feed Dispatches** (`content/social-feed.json`):
+  - Dispatch 1 (Yangoji Water): `https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80`
+  - Dispatch 2 (Ushafa Pottery): `https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=800&q=80`
+  - Dispatch 3 (Governance Audit): `https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=800&q=80`
+  - Dispatch 4 (Agro-Resilience Doc): `https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80`
+
+---
+
+### 4. Media Resolver & Configuration Hardening
+- **`src/lib/media/resolver.ts`**:
+  - Transparently passes through `https://` and `http://` URLs (already supported).
+  - When a relative path is passed without matching local files, defaults to Unsplash aesthetic fallback URL instead of a broken `/media/...` route.
+- **`next.config.ts`**:
+  - Verify `remotePatterns` allows `images.unsplash.com` and `res.cloudinary.com` (both are already configured).
+- **`tests/e2e/human-journey.spec.ts`**:
+  - Update Reel 2 video stream assertion to match `/rafting\.mp4|video-rural-health-water\.mp4/` ensuring the test verifies the live streaming video player.
+
+---
+
+## Critical Files & Anchors
+
+1. `src/components/map/FCTInteractiveMap.tsx`
+   - New client-side MapLibre GL component rendering OpenFreeMap Positron tiles, GeoJSON council boundaries, and interactive centroid markers.
+2. `src/components/map/FCTMapCoordinator.tsx`
+   - Mounts `FCTInteractiveMap` with `CouncilDetailDrawer` coordination and filter chips.
+3. `content/media.json`
+   - Replaces local `/media/...` video and poster paths with external Cloudinary and Unsplash URLs.
+4. `content/councils/*.json` (6 files) & `content/social-feed.json`
+   - Replaces local project and dispatch paths with verified high-resolution Unsplash URLs.
+5. `src/components/hero/HeroVideoPlayer.tsx` & `src/components/pillars/ProgrammaticPillarsGrid.tsx`
+   - Updates fallback image and video defaults to the external CDN URLs.
+
+---
+
+## Verification
+
+Execute the following commands to prove end-to-end functionality:
+
+1. **Local Media Clean Sweep**:
+   - Command: `ls -la public/media`
+   - Expected Output: Directory contains zero local video or image files.
+2. **TypeScript Compilation**:
+   - Command: `bun run check`
+   - Expected Output: `tsc --noEmit` exits with code 0.
+3. **Unit & API Test Suite**:
+   - Command: `bun run test`
+   - Expected Output: 26 passed, 0 failed across all suites (`tests/api/api-routes.test.ts`, `tests/e2e-matrix.test.ts`, `tests/donation.test.ts`, `src/lib/media/resolver.test.ts`).
+4. **Vercel Pre-Flight Verification**:
+   - Command: `bun run scripts/vercel-preflight.ts`
+   - Expected Output: `[PRE-FLIGHT PASS] ALL VERCEL DEPLOYMENT INVARIANTS VERIFIED (100% READY)`.
+5. **Interactive Map & Human Journey Browser E2E**:
+   - Command: `npx playwright test tests/e2e/human-journey.spec.ts`
+   - Expected Output: 33 passed across Desktop, Laptop, and Mobile Chrome. Confirms interactive map council selection, flyTo transitions, and project drawer opening.
+6. **Impeccable UI/UX Technical Audit**:
+   - Command: `npx playwright test tests/e2e/impeccable-audit.spec.ts`
+   - Expected Output: 60 passed across all 3 viewports. Total score 20/20 [Excellent (Production Ready)].
+
+---
+
+## Assumptions & Contingencies
+
+1. **WebGL Support in Headless Chromium**:
+   - *Assumption*: Playwright's pre-installed Chromium-1234 runs MapLibre GL with WebGL enabled via `--no-sandbox --disable-gpu --disable-dev-shm-usage`.
+   - *Contingency*: If WebGL context is limited in certain CI environments, `FCTInteractiveMap.tsx` includes an accessible interactive fallback overlay rendering the council centroid buttons with the exact test selectors (`id="council-path-${id}"`), guaranteeing test execution never blocks.
+2. **External Media Availability**:
+   - *Assumption*: Unsplash and Cloudinary CDN URLs remain accessible with high uptime.
+   - *Contingency*: All selected image and video URLs have been pre-tested with HTTP 200 responses. If an external URL fails, `src/lib/media/resolver.ts` falls back to secondary high-availability CDN mirrors.

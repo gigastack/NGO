@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import type { NGOConfig, FCTAreaCouncilData, FCTAreaCouncilId } from "@/lib/schema/ngo.schema";
-import { FCTMapSVG } from "./FCTMapSVG";
+import { FCTInteractiveMap } from "./FCTInteractiveMap";
 import { CouncilDetailDrawer } from "./CouncilDetailDrawer";
 import { FALLBACK_FCT_COUNCILS } from "./fct-councils-data";
 
@@ -81,7 +81,7 @@ export function FCTMapCoordinator({
         </div>
 
         {/* Quick Filter Selector Chips */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none w-full max-w-full min-w-0">
           <button
             type="button"
             onClick={() => setSelectedCouncilId(null)}
@@ -116,7 +116,7 @@ export function FCTMapCoordinator({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Main Interactive Vector Map (7 Cols) */}
           <div className="lg:col-span-7">
-            <FCTMapSVG
+            <FCTInteractiveMap
               councils={councils}
               selectedCouncilId={selectedCouncilId}
               onSelectCouncil={(id) => setSelectedCouncilId(id)}
@@ -240,7 +240,10 @@ export function FCTMapCoordinator({
           council={activeCouncil}
           isOpen={activeCouncil !== null}
           onClose={() => setSelectedCouncilId(null)}
-          onOpenDonation={onOpenDonation}
+          onOpenDonation={(councilId) => {
+            setSelectedCouncilId(null);
+            onOpenDonation?.(councilId);
+          }}
         />
       </div>
     </section>

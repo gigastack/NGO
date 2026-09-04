@@ -180,7 +180,6 @@ export function SoundscapeToggle({ className = "", audioUrl }: SoundscapeToggleP
         startProceduralSynth(ctx, masterGain);
       }
     } catch {
-      // Audio playback failed (e.g. autoplay blocked or unmounted)
       setIsPlaying(false);
     }
   }, [audioUrl, volume, startProceduralSynth]);

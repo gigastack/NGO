@@ -23,7 +23,7 @@
       "beneficiariesCount": 5100,
       "status": "active",
       "description": "Equipping riparian fishing families with solar fish smoking ovens, biodegradable nets, fingerling replenishment ponds, and clean ice preservation units.",
-      "mediaPath": "/media/councils/abaji-gurara.jpg"
+      "mediaPath": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80"
     },
     {
       "id": "abaji-proj-pandagi-health",
@@ -34,7 +34,7 @@
       "beneficiariesCount": 6700,
       "status": "active",
       "description": "Rural primary clinic providing maternal antenatal care, clean birthing kits, rapid diagnostic testing for river-borne illnesses, and emergency referral logistics.",
-      "mediaPath": "/media/councils/abaji-pandagi.jpg"
+      "mediaPath": "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=800&q=80"
     }
   ]
 }

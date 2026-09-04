@@ -91,6 +91,7 @@ export const AdminToolbar: React.FC<AdminToolbarProps> = ({
             type="button"
             onClick={onDownload}
             title="Export local configuration backup JSON"
+            aria-label="Download JSON Archive"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-[#FAF8F5] bg-[#27272A] hover:bg-[#3F3F46] border border-[#3F3F46] transition-all"
           >
             <Download className="w-3.5 h-3.5" />
@@ -102,6 +103,7 @@ export const AdminToolbar: React.FC<AdminToolbarProps> = ({
             onClick={onPurgeCache}
             disabled={isPurging}
             title="Purge Next.js on-demand ISR edge cache"
+            aria-label="Purge Edge Cache"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-[#FAF8F5] bg-[#1C3F35] hover:bg-[#255246] border border-[#2A5C4F] transition-all disabled:opacity-50"
           >
             {isPurging ? (

@@ -5,35 +5,34 @@
       "basePath": "/media"
     }
   },
-  "heroBackgroundVideo": "/media/video-fct-overview.mp4",
-  "heroFallbackPoster": "/media/image-monolith-civic.svg",
-  "ambientAudioSoundscapeUrl": "/media/audio-abuja-dawn-ambient.mp3",
+  "heroBackgroundVideo": "https://res.cloudinary.com/demo/video/upload/elephants.mp4",
+  "heroFallbackPoster": "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1920&q=80",
   "miniDocumentaries": [
     {
       "id": "monolith-margin",
       "title": "Monolith & Margin: Voices from Kuchingoro",
       "councilId": "amac",
-      "mediaPath": "/media/doc-monolith-margin.mp4",
+      "mediaPath": "https://res.cloudinary.com/demo/video/upload/dog.mp4",
       "durationMinutes": 8.5,
-      "thumbnailPath": "/media/doc-monolith-thumb.jpg",
+      "thumbnailPath": "https://images.unsplash.com/photo-1589824783837-6169889fa20f?auto=format&fit=crop&w=1200&q=80",
       "captionSummary": "A documentary exploration of IDP community health workers navigating resilience under the shadow of the capital's federal infrastructure."
     },
     {
       "id": "clean-water-aquifers",
       "title": "Solar & Stone: Deep Aquifer Extraction in Bwari",
       "councilId": "bwari",
-      "mediaPath": "/media/doc-clean-water-aquifers.mp4",
+      "mediaPath": "https://res.cloudinary.com/demo/video/upload/rafting.mp4",
       "durationMinutes": 6.2,
-      "thumbnailPath": "/media/doc-aquifers-thumb.jpg",
+      "thumbnailPath": "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1200&q=80",
       "captionSummary": "Hydrological engineering meets grassroots council participation to bring continuous clean water to Ushafa ceramic artisan clusters."
     },
     {
       "id": "solar-code-clay",
       "title": "Clay, Code & Harvest: Gwagwalada Agro-Resilience",
       "councilId": "gwagwalada",
-      "mediaPath": "/media/doc-solar-code-clay.mp4",
+      "mediaPath": "https://res.cloudinary.com/demo/video/upload/sea_turtle.mp4",
       "durationMinutes": 7,
-      "thumbnailPath": "/media/doc-clay-thumb.jpg",
+      "thumbnailPath": "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=1200&q=80",
       "captionSummary": "Youth agritech scholars using solar micro-grids and low-power soil sensors to double yam and grain yields in Paiko agrarian cooperatives."
     }
   ]

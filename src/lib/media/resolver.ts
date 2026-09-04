@@ -1,11 +1,15 @@
 import type { NGOConfig } from "@/lib/schema/ngo.schema";
 
+export const AESTHETIC_UNSPLASH_FALLBACK =
+  "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1920&q=80";
+
 export interface MediaTransformOptions {
   width?: number;
   height?: number;
   quality?: "auto" | number;
   format?: "auto" | "webp" | "avif" | "mp4" | "webm";
   video?: boolean;
+  fallbackUrl?: string;
 }
 
 /**
@@ -76,7 +80,7 @@ export function resolveMediaUrl(
   overrideConfig?: NGOConfig
 ): string {
   if (!pathOrId) {
-    return "";
+    return options?.fallbackUrl || "";
   }
 
   const trimmed = pathOrId.trim();

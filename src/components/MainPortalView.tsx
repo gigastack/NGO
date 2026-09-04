@@ -49,7 +49,7 @@ export function MainPortalView({ config }: MainPortalViewProps) {
         />
 
         {/* Section 2: Interactive FCT Area Councils Map & Dispatch Drawer */}
-        <div id="fct-map">
+        <div>
           <FCTMapCoordinator
             config={config}
             onOpenDonation={(_councilId) => handleOpenDonation()}
@@ -57,19 +57,19 @@ export function MainPortalView({ config }: MainPortalViewProps) {
         </div>
 
         {/* Section 3: Programmatic Pillars Bento Grid */}
-        <div id="pillars">
+        <div>
           <ProgrammaticPillarsGrid
             onOpenDonationDrawer={(tierId) => handleOpenDonation(tierId)}
           />
         </div>
 
         {/* Section 4: Mini-Documentary Hub */}
-        <div id="stories">
+        <div>
           <MiniDocumentaryHub />
         </div>
 
         {/* Section 5: Trust, Governance & Audited Financial Disclosure */}
-        <div id="governance">
+        <div>
           <RegulatoryTrustPanel governance={config.governance} />
         </div>
 

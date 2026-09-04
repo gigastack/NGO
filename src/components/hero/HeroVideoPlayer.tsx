@@ -29,8 +29,8 @@ export function HeroVideoPlayer({
   const [hasError, setHasError] = useState<boolean>(false);
 
   // Fallback defaults if not supplied
-  const rawVideo = videoSrc || config?.media?.heroBackgroundVideo || "/media/video-fct-overview.mp4";
-  const rawPoster = posterSrc || config?.media?.heroFallbackPoster || "/media/image-monolith-civic.svg";
+  const rawVideo = videoSrc || config?.media?.heroBackgroundVideo || "https://res.cloudinary.com/demo/video/upload/elephants.mp4";
+  const rawPoster = posterSrc || config?.media?.heroFallbackPoster || "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1920&q=80";
 
   const resolvedVideoUrl = resolveMediaUrl(rawVideo, { video: true }, config);
   const resolvedPosterUrl = resolveMediaUrl(rawPoster, { format: mediaOptimization.preferredFormat }, config);
@@ -65,7 +65,7 @@ export function HeroVideoPlayer({
     >
       {/* 1. Poster Still Layer (Visible during loading, slow connections, or error) */}
       <div
-        className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-out z-10 ${
+        className={`absolute inset-0 w-full h-full overflow-hidden transition-opacity duration-1000 ease-out z-10 ${
           isVideoLoaded && (allowAutoplay || isPlayingManual) ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
       >
@@ -74,6 +74,8 @@ export function HeroVideoPlayer({
           alt="Abuja civic landscape monolith"
           fill
           priority
+          loading="eager"
+          fetchPriority="high"
           sizes="100vw"
           className="object-cover object-center transform scale-[1.02]"
         />
@@ -109,7 +111,7 @@ export function HeroVideoPlayer({
 
       {/* 5. Data Saver / Manual Play Pill Overlay (When autoplay is inhibited) */}
       {isLowBandwidth && !isPlayingManual && (
-        <div className="absolute bottom-6 right-6 z-30">
+        <div className="absolute bottom-6 right-6 z-30 pointer-events-auto">
           <button
             type="button"
             onClick={handleManualPlay}

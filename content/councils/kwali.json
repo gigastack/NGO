@@ -23,7 +23,7 @@
       "beneficiariesCount": 13500,
       "status": "active",
       "description": "Multi-stand reticulated solar water system delivering over 35,000 liters daily to households, primary schools, and weekly regional transit market stalls.",
-      "mediaPath": "/media/councils/kwali-yangoji.jpg"
+      "mediaPath": "https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&w=800&q=80"
     },
     {
       "id": "kwali-proj-kilankwa-clinic",
@@ -34,7 +34,7 @@
       "beneficiariesCount": 7800,
       "status": "active",
       "description": "Bi-weekly all-terrain mobile clinic providing immunization, malaria testing and treatment, hypertensive screening, and health education to remote pastoral homesteads.",
-      "mediaPath": "/media/councils/kwali-kilankwa.jpg"
+      "mediaPath": "https://images.unsplash.com/photo-1594708767771-a7502209ff51?auto=format&fit=crop&w=800&q=80"
     }
   ]
 }

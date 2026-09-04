@@ -289,13 +289,15 @@ export function CouncilDetailDrawer({
               <button
                 type="button"
                 onClick={() => {
+                  onClose();
                   if (onOpenDonation) {
                     onOpenDonation(council.id);
                   }
                 }}
                 className="flex-1 px-5 py-2.5 rounded-xl bg-[var(--color-terracotta-primary,#B85D36)] text-white text-sm font-bold shadow-sm hover:bg-[#A34E2A] active:scale-[0.98] transition-all text-center focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-terracotta-primary,#B85D36)]"
+                aria-label="Support Projects in this Council"
               >
-                Support {council.name.split(" ")[0]} Initiatives
+                Support Projects in this Council
               </button>
             </div>
           </motion.div>

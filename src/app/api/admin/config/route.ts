@@ -52,7 +52,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          error: "Unauthorized: Invalid or missing admin passphrase",
+          error: "Unauthorized: Invalid administrative passphrase.",
+          message: "Unauthorized: Invalid administrative passphrase.",
         },
         { status: 401 }
       );
@@ -76,15 +77,30 @@ export async function POST(request: NextRequest) {
         {
           success: false,
           error: "Validation failed against NGOConfigSchema",
+          message: "Validation failed against NGOConfigSchema",
           issues: parseResult.error.issues,
         },
         { status: 400 }
       );
     }
 
-    // 4. Atomically persist back to content/
-    await writeNGOConfig(parseResult.data);
+    // 4. Vercel Read-Only Filesystem Contingency:
+    // On Vercel lambdas, filesystem is read-only. Avoid failing with 500 EROFS.
+    if (process.env.VERCEL === "1") {
+      return NextResponse.json(
+        {
+          success: true,
+          readOnly: true,
+          message:
+            "Vercel deployment environment detected (read-only serverless filesystem). Direct file writes are disabled. Please use 'Download JSON Archive' in the Content Studio to export and commit changes via Git.",
+          data: parseResult.data,
+        },
+        { status: 200 }
+      );
+    }
 
+    // Atomically persist back to content/
+    await writeNGOConfig(parseResult.data);
     // 5. Revalidate cache
     try {
       revalidatePath("/");

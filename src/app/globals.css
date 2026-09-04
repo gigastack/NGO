@@ -7,7 +7,7 @@
   --color-granite-deep: #111113;
   --color-granite-card: #1E1E22;
   --color-granite-border: #2D2D34;
-  --color-granite-muted: #7A736B;
+  --color-granite-muted: #746D65;
   --color-savannah-primary: #1C3F35;
   --color-savannah-surface: #E8F0ED;
   --color-parchment-ground: #FAF8F5;
@@ -21,7 +21,9 @@
   --font-body: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
+html,
 body {
+  max-width: 100%;
   background-color: var(--color-parchment-ground);
   color: var(--color-granite-deep);
   font-family: var(--font-body);

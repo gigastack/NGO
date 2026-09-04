@@ -57,14 +57,16 @@ export function Navbar({ organization, branding, onOpenDonation }: NavbarProps) 
           {/* Brand & Crest */}
           <Link
             href="/"
-            className="flex items-center gap-3.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-terracotta-primary)] rounded-lg p-1 -ml-1 transition-transform"
+            className="flex items-center gap-2 sm:gap-3.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-terracotta-primary)] rounded-lg p-1 -ml-1 transition-transform min-w-0 mr-2"
             aria-label={`${organization.tradingName} Home`}
           >
-            <div className="w-10 h-10 rounded-full bg-[var(--color-savannah-primary)] flex items-center justify-center p-2 text-white shadow-soft transition-transform group-hover:scale-105">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[var(--color-savannah-primary)] flex items-center justify-center p-1.5 sm:p-2 text-white shadow-soft transition-transform group-hover:scale-105 shrink-0">
               {/* Sacred Earth Crest or SVG */}
               <img
                 src={crestPath}
                 alt=""
+                loading="eager"
+                fetchPriority="high"
                 className="w-full h-full object-contain"
                 onError={(e) => {
                   // Fallback to inline SVG if image file is not found
@@ -89,16 +91,16 @@ export function Navbar({ organization, branding, onOpenDonation }: NavbarProps) 
               </svg>
             </div>
 
-            <div className="flex flex-col">
-              <div className="flex items-center gap-2">
-                <span className="font-display font-bold text-lg leading-tight tracking-tight text-[var(--color-granite-deep)]">
+            <div className="flex flex-col min-w-0">
+              <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                <span className="font-display font-bold text-sm sm:text-base md:text-lg leading-tight tracking-tight text-[var(--color-granite-deep)] truncate max-w-[125px] sm:max-w-[180px] lg:max-w-none">
                   {organization.tradingName}
                 </span>
-                <span className="text-[10px] uppercase font-semibold tracking-wider px-1.5 py-0.5 rounded bg-[var(--color-savannah-surface)] text-[var(--color-savannah-primary)] border border-[var(--color-savannah-primary)]/20">
+                <span className="hidden sm:inline-block text-[10px] uppercase font-semibold tracking-wider px-1.5 py-0.5 rounded bg-[var(--color-savannah-surface)] text-[var(--color-savannah-primary)] border border-[var(--color-savannah-primary)]/20 shrink-0">
                   {organization.acronym}
                 </span>
               </div>
-              <span className="text-xs text-[var(--color-granite-muted)] font-medium">
+              <span className="hidden md:inline-block text-xs text-[var(--color-granite-muted)] font-medium truncate">
                 Abuja Federal Capital Territory
               </span>
             </div>
@@ -106,7 +108,7 @@ export function Navbar({ organization, branding, onOpenDonation }: NavbarProps) 
 
           {/* Desktop Navigation Links */}
           <nav
-            className="hidden md:flex items-center gap-1 lg:gap-2"
+            className="hidden lg:flex items-center gap-1 lg:gap-2"
             aria-label="Main Navigation"
           >
             {NAV_LINKS.map((link) => (
@@ -121,7 +123,7 @@ export function Navbar({ organization, branding, onOpenDonation }: NavbarProps) 
           </nav>
 
           {/* Right Action Area */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             {/* Admin Studio discreet cog */}
             <Link
               href="/admin"
@@ -144,7 +146,7 @@ export function Navbar({ organization, branding, onOpenDonation }: NavbarProps) 
           </div>
 
           {/* Mobile Menu Toggle Button */}
-          <div className="flex md:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-2 shrink-0">
             <button
               type="button"
               onClick={onOpenDonation}
@@ -159,7 +161,7 @@ export function Navbar({ organization, branding, onOpenDonation }: NavbarProps) 
               className="p-2 rounded-md text-[var(--color-granite-deep)] hover:bg-[var(--color-parchment-subtle)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-terracotta-primary)] transition-colors"
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-navigation"
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -175,7 +177,7 @@ export function Navbar({ organization, branding, onOpenDonation }: NavbarProps) 
       {mobileMenuOpen && (
         <div
           id="mobile-navigation"
-          className="md:hidden border-t border-[var(--color-parchment-border)] bg-[var(--color-parchment-ground)] px-4 pt-3 pb-6 space-y-3 shadow-card"
+          className="lg:hidden border-t border-[var(--color-parchment-border)] bg-[var(--color-parchment-ground)] px-4 pt-3 pb-6 space-y-3 shadow-card"
         >
           <div className="flex flex-col space-y-1">
             {NAV_LINKS.map((link) => (

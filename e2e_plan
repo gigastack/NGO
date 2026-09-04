@@ -1,0 +1,303 @@
+# End-to-End API & Human Real Usage Verification Plan for Vercel Deployment Readiness
+
+## Context
+The goal is to establish a rigorous, comprehensive End-to-End (E2E) verification system for the Abuja NGO Web Portal across three complementary vectors: programmatic API contracts, human real-world browser usage, and an exhaustive technical UI/UX audit executing the **Impeccable Design System quality standard**, validating that the platform is 100% production-ready for deployment to Vercel.
+
+The verification spans all Next.js 15 App Router serverless endpoints (`/api/admin/config`, `/api/revalidate`, `/api/social-feed`), all interactive client flows (Warm Afro-Modernism responsive shell, ambient video & soundscape, 6-council interactive vector map, programmatic pillars bento grid, 3-reel mini-documentary modal, financial governance SVG donut, multi-currency donation drawer with GTBank 1-click copy and WhatsApp URI generation, and the visual `/admin` Content Studio with project CRUD and JSON export), a 5-dimension technical UI/UX diagnostic scan with craft-floor rule enforcement, followed by a complete Vercel deployment pre-flight audit.
+---
+
+## Approach
+
+### 1. Test Architecture & Harness Setup
+- **Test Runners**:
+  - **Programmatic API & Integration Tests**: Executed via Bun's native high-performance test runner (`bun test`) targeting serverless route handlers, Zod schema invariants, environment override precedence, and data round-trips.
+  - **Human Real Usage Browser E2E Tests**: Executed via `@playwright/test` running headless/headed Chromium using the pre-installed Chrome for Testing binary (`/home/punkhazard/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome`).
+- **Configuration & Dependencies**:
+  - Add `@playwright/test` to `devDependencies` in `package.json`.
+  - Create `playwright.config.ts` configuring:
+    * `testDir: './tests/e2e'`, `baseURL: 'http://127.0.0.1:3000'`.
+    * `webServer: { command: 'bun run start', port: 3000, reuseExistingServer: true }` (using production build to guarantee production parity).
+    * Viewport matrix: Desktop (`1280x800`), Laptop (`1024x768`), Mobile (`375x812` - iPhone 13 profile).
+    * `trace: 'on-first-retry'`, `screenshot: 'only-on-failure'`.
+
+---
+
+### 2. Programmatic API E2E Verification Suite (`tests/api/api-routes.test.ts`)
+
+Grouped by serverless contract and error resilience:
+
+#### 2.1 Admin Configuration Service (`/api/admin/config`)
+- **Route**: `src/app/api/admin/config/route.ts`
+- **Tests**:
+  1. `GET /api/admin/config` (Unauthenticated):
+     - Returns HTTP 200 with full `NGOConfig` payload.
+     - Verifies headers: `Cache-Control: no-store, max-age=0`.
+     - Validates JSON shape matches `NGOConfigSchema` (has `organization`, `branding`, `governance`, `banking`, `media`, `socialFeed`, `councils`).
+  2. `POST /api/admin/config` (Authentication Enforcement):
+     - No credentials -> HTTP 401 `{ success: false, message: 'Unauthorized: Invalid administrative passphrase.' }`.
+     - Invalid header `x-admin-passphrase: wrong-key` -> HTTP 401.
+     - Invalid bearer `Authorization: Bearer wrong-key` -> HTTP 401.
+     - Valid header `x-admin-passphrase: abuja-resilience-2025` -> Proceed to validation.
+     - Valid bearer `Authorization: Bearer abuja-resilience-2025` -> Proceed to validation.
+  3. `POST /api/admin/config` (Payload Validation Guardrails):
+     - Corrupted payload (invalid 5-digit account number `"12345"`) -> HTTP 400 with structured Zod issues naming `banking.ngnAccount.accountNumber`.
+     - Missing Area Council (e.g. `amac` omitted) -> HTTP 400.
+     - Invalid allocation percentages (sum != 100) -> HTTP 400.
+  4. `POST /api/admin/config` (Atomic Persistence & Round-Trip):
+     - Update `organization.tagline` to `"Grassroots Power in Abuja"`, persist via valid POST.
+     - Immediately query `GET /api/admin/config` and verify updated value without restart.
+     - Restore original tagline `"From Granite to Grassroots"` to maintain clean state.
+
+#### 2.2 On-Demand Edge Cache Revalidation Service (`/api/revalidate`)
+- **Route**: `src/app/api/revalidate/route.ts`
+- **Tests**:
+  1. Unauthorized Calls:
+     - `GET /api/revalidate` (no query or token) -> HTTP 401 `{ revalidated: false, message: 'Invalid secret token' }`.
+     - `GET /api/revalidate?secret=invalid-token` -> HTTP 401.
+     - `POST /api/revalidate` with bad Bearer -> HTTP 401.
+  2. Authorized Calls:
+     - `GET /api/revalidate?secret=abuja-resilience-revalidate-2025` -> HTTP 200 `{ revalidated: true, now: number }`.
+     - `POST /api/revalidate` with `Authorization: Bearer abuja-resilience-revalidate-2025` -> HTTP 200 `{ revalidated: true, now: number }`.
+
+#### 2.3 Resilient Social Feed Service (`/api/social-feed`)
+- **Route**: `src/app/api/social-feed/route.ts`
+- **Tests**:
+  1. Returns HTTP 200 with `{ items: SocialFeedItem[], cachedAt: string }`.
+  2. Verifies HTTP Cache-Control header: `s-maxage=300, stale-while-revalidate=600`.
+  3. Verifies array contains minimum 4 dispatches across platforms (`x`, `instagram`, `linkedin`, `youtube`).
+  4. Confirms every item possesses valid non-empty `content`, `authorName`, and `permalink`.
+
+---
+
+### 3. Human Real Usage Browser E2E Suite (`tests/e2e/human-journey.spec.ts`)
+
+Simulates realistic end-user interactions using Playwright:
+
+#### 3.1 Visitor Exploration & Responsive Layout
+- **Path**: `/`
+- **Steps**:
+  1. Open page on desktop (`1280x800`). Verify page title is `"Abuja Resilience Initiative | From Granite to Grassroots"`.
+  2. Assert Impeccable Direction Contract comment `<!-- IMPECCABLE DIRECTION CONTRACT: Warm Afro-Modernism | Abuja Resilience Initiative -->` is the first element in `<body>`.
+  3. Scroll through page: verify sticky Navbar applies `backdrop-blur-md` and shadow.
+  4. Click each navigation anchor:
+     - Click `"FCT Map"` -> smooth scroll targets element `#fct-map`.
+     - Click `"Programs"` -> smooth scroll targets `#pillars`.
+     - Click `"Governance"` -> smooth scroll targets `#governance`.
+     - Click `"Stories"` -> smooth scroll targets `#stories`.
+  5. Switch viewport to Mobile (`375x812`):
+     - Desktop links hide; hamburger button (`aria-label="Toggle navigation menu"`) becomes visible.
+     - Click hamburger -> mobile drawer opens with full navigation links and "Donate Now" CTA.
+     - Press `Escape` key -> mobile menu closes gracefully.
+
+#### 3.2 Hero Media, Ambient Audio & Data-Saver Simulation
+- **Path**: `/`
+- **Steps**:
+  1. Standard Connection: Verify `<video>` element loads `video-fct-overview.mp4` with `muted`, `loop`, and `playsinline`.
+  2. Low-Bandwidth / Data-Saver Mode:
+     - Emulate `navigator.connection = { saveData: true, effectiveType: '2g' }`.
+     - Verify ambient video autoplay is blocked, high-res SVG fallback poster `image-monolith-civic.svg` displays with manual "Play Stream" control.
+     - Click "Play Stream" -> video starts playing.
+  3. Web Audio Ambient Soundscape:
+     - Find soundscape toggle button with label `"Ambient Soundscape"`.
+     - Click button -> state toggles to active, visual acoustic pulse waves animate.
+     - Click button again -> soundscape returns to muted.
+  4. Impact Counter Strip:
+     - Assert text displays `"28,000+"`, `"6 / 6"`, and `"84%"`.
+
+#### 3.3 Interactive 6-Area Council Map & Slide-Over Drawer
+- **Path**: `/#fct-map`
+- **Steps**:
+  1. Verify all 6 Area Councils exist in the SVG map: `amac`, `bwari`, `gwagwalada`, `kuje`, `kwali`, `abaji`.
+  2. Hover over council path `kwali`: path fill transitions to terracotta/emerald accent.
+  3. Click `kwali`:
+     - Council detail drawer slides open with heading `"Kwali Area Council"`.
+     - Confirms headquarters `"Kwali"`, terrain `"Savannah Plains"`, and Dispatch Lead contact phone.
+     - Confirms field projects listed: `"Yangoji Solar Borehole Network"` and `"Kilankwa Mobile Primary Clinic"`.
+  4. Click "Support Projects in this Council" inside the drawer:
+     - Verifies drawer closes and Donation Drawer slides in.
+  5. Close drawer via `Escape` key and verify focus returns to map.
+
+#### 3.4 Programmatic Pillars Bento Grid & 3-Reel Documentary Modal
+- **Path**: `/#pillars` and `/#stories`
+- **Steps**:
+  1. Pillars Bento Grid:
+     - Verify Pillar 1 ("Clean Aquifers & Primary Healthcare"), Pillar 2 ("Solar STEM & Ancestral Heritage"), and Pillar 3 ("IDP Resilience").
+     - Click "Support Clean Water" -> Donation Drawer opens with ₦50,000 / $150 tier pre-selected.
+  2. Mini-Documentary Hub:
+     - Verify 3 documentary cards: "The Monolith & The Margin", "Clean Water & Maternal Care", "Solar Code & Ancestral Clay".
+     - Click Reel 2 ("Clean Water & Maternal Care"):
+       * `VideoModalPlayer` opens full dialog with backdrop blur.
+       * Dialog displays video stream `video-rural-health-water.mp4`, title, council tag "Kwali & Kuje", and caption.
+       * Press `Escape` -> modal closes cleanly.
+
+#### 3.5 Governance Transparency & Interactive Financial Donut
+- **Path**: `/#governance`
+- **Steps**:
+  1. Compliance Badges:
+     - Find CAC Part F badge, click "Copy" button -> toast shows `"Copied to clipboard"`, checkmark icon toggles, and resets after 2000ms.
+     - Find SCUML, FIRS TIN, and CITA Section 23 tax-exemption verification text.
+  2. Interactive SVG Donut Chart:
+     - Verify legend items: "84% Direct Program Delivery", "11% Field Logistics & Monitoring", "5% Administrative Governance".
+     - Hover over the 84% segment -> segment expands/highlights, center text displays `"84%"`.
+  3. Trustee Board Roster:
+     - Verifies cards for Dr. Amina Bello, Engr. Chidi Okafor, Hajia Zainab Kuje, and Barr. Tunde Adeleke.
+
+#### 3.6 Multi-Currency Donation Drawer & WhatsApp Integration Flow
+- **Steps**:
+  1. Click primary "Donate Now" button in Navbar.
+  2. Drawer slides in with Sacred Earth Crest and title "Direct Impact Giving".
+  3. Currency Switching:
+     - Default NGN: displays GTBank account number `"0123456789"`, sort code `"058152062"`.
+     - Click "Copy Account Number" -> toast notification confirms copy.
+     - Select preset tier `₦50,000`: impact text updates to `"Equips a solar borehole pump"`.
+     - Verify WhatsApp confirmation button href starts with `https://wa.me/2348039001234?text=` and URL contains encoded reference and `50,000`.
+     - Switch to USD tab -> `DomiciliaryWirePanel` mounts, displays GTBank USD account, SWIFT `GTBINGLA`, and wire routing instructions.
+     - Switch to EUR and GBP -> verifies respective currency wire instructions.
+  4. Close drawer via backdrop click.
+
+#### 3.7 In-App Visual Content Studio Human Administrator Flow (`/admin`)
+- **Path**: `/admin`
+- **Steps**:
+  1. Passphrase Gate Screen:
+     - Enter invalid passphrase `"wrong-pass"` -> error message `"Invalid administrative passphrase"`.
+     - Enter valid passphrase `"abuja-resilience-2025"` -> studio unlocks and reveals the 6 tabs.
+  2. Tab Switching & Live Editing:
+     - Click Tab 1 "General Identity": change trading name to `"Abuja Resilience Initiative (Live E2E)"`.
+     - Click Tab 4 "Councils & Projects": select `kuje`, click "Add New Project", fill modal with `"Rubochi Agro-Solar Grain Mill"`, 1,200 beneficiaries, category `"agriculture"`, and save project.
+     - Click Tab 3 "Media & Storage": toggle provider between `local` and `cloudinary`.
+  3. Action Toolbar Execution:
+     - Click "Save to Content Files": verifies POST `/api/admin/config` succeeds with positive toast feedback.
+     - Click "Download JSON Archive": verifies browser trigger creates downloadable `abuja-ngo-config.json` Blob.
+     - Click "Purge Edge Cache": verifies on-demand revalidation triggers and reports success.
+     - Click "Back to Portal": navigates back to `/` and confirms updated trading name is reflected.
+     - Return to `/admin` and restore original name `"Abuja Resilience Initiative"`, save and clean up.
+
+---
+
+### 4. Technical UI/UX Auditing Suite: Impeccable Skill Diagnostic Scan (`tests/e2e/impeccable-audit.spec.ts`)
+
+A systematic, automated technical quality audit executing the 5 diagnostic dimensions and strict craft-floor rules of the **Impeccable Design System**:
+
+#### 4.1 Dimension 1: Accessibility (A11y) Audit (Target Score: 4/4)
+- **Color Contrast**:
+  - Evaluates computed contrast ratios for all text elements:
+    * Normal body text against Parchment Ground (`#FAF8F5`): >= 4.5:1 (Granite Deep `#111113` yields 17.5:1, Granite Muted `#7A736B` yields 4.52:1).
+    * Terracotta primary button fill (`#B85D36`) with white text (`#FFFFFF`): >= 4.65:1 (passes WCAG AA).
+    * Terracotta text links (`#9E4723`) on parchment ground: >= 4.72:1 (passes WCAG AA).
+    * High-contrast obsidian headlines (`#111113`): >= 17.5:1 (exceeds WCAG AAA).
+- **Motion Sensitivity (`prefers-reduced-motion`)**:
+  - Tests page rendering with `emulateMedia({ reducedMotion: 'reduce' })`.
+  - Confirms ambient video canvas suppresses auto-looping without layout jump.
+  - Confirms spring counters transition cleanly to final values without blocking reading or focus.
+  - Confirms slide-over drawers (`CouncilDetailDrawer`, `DonationDrawer`) use instant/fade transitions instead of large translation sweeps.
+- **Keyboard Navigation & ARIA Semantic Hierarchy**:
+  - Confirms skip-to-content anchor targets `#main-content`.
+  - Confirms single sequential `<h1>` on the landing page, followed by strictly nested `<h2>` landmarks for each section.
+  - Validates visible focus rings on all interactive elements (`focus-visible:ring-2 focus-visible:ring-[var(--color-terracotta-primary)]`).
+  - Verifies modal & drawer focus trapping: when `DonationDrawer` or `CouncilDetailDrawer` is open, `Tab` cycling is trapped within the overlay, and `Escape` restores focus to the invoking element.
+
+#### 4.2 Dimension 2: Performance & Motion Choreography (Target Score: 4/4)
+- **Render Stability & Layout Thrashing**:
+  - Verifies zero layout-property animations (`width`, `height`, `top`, `left` in CSS transitions or Motion variants).
+  - Confirms all animated surfaces use composite-only hardware-accelerated transforms (`transform: translate3d(...)`, `opacity`).
+- **Asset Loading & Optimization**:
+  - Verifies above-the-fold Hero poster (`image-monolith-civic.svg`) loads with `priority`.
+  - Verifies below-the-fold images (`image-health-outreach.svg`, `image-youth-education.svg`) load with native `loading="lazy"`.
+  - Validates responsive `viewBox` attributes on all SVGs (`0 0 1200 800`, `0 0 400 80`, `0 0 100 120`) preventing layout shifts (CLS = 0).
+
+#### 4.3 Dimension 3: Theming & Token Fidelity (Target Score: 4/4)
+- **Token Discipline**:
+  - Audits stylesheet and computed element styles against the Warm Afro-Modernism palette:
+    `--color-terracotta-primary: #B85D36`, `--color-terracotta-link: #9E4723`, `--color-terracotta-surface: #F9EFEB`, `--color-granite-deep: #111113`, `--color-granite-card: #1E1E22`, `--color-granite-muted: #7A736B`, `--color-savannah-primary: #1C3F35`, `--color-savannah-surface: #E8F0ED`, `--color-parchment-ground: #FAF8F5`, `--color-parchment-subtle: #F3EFEA`, `--color-parchment-border: #E5DFD5`, `--color-ochre-accent: #D49B35`.
+  - Verifies zero arbitrary unapproved hex colors in component inline styles.
+- **Browser Surfaces Craft**:
+  - Confirms text selection is themed from the palette: `selection:bg-[var(--color-terracotta-surface)] selection:text-[var(--color-terracotta-primary)]`.
+  - Confirms focus outlines are styled with terracotta accent, eliminating browser default blue halos.
+
+#### 4.4 Dimension 4: Responsive Design & Ergonomics (Target Score: 4/4)
+- **Viewport Fluidity**:
+  - Tests 5 distinct viewport sizes: 320px (iPhone SE / small mobile), 375px (standard mobile), 768px (tablet portrait), 1024px (tablet landscape), and 1440px (desktop wide).
+  - Confirms zero horizontal scrollbars or document overflow (`document.documentElement.scrollWidth <= window.innerWidth`).
+  - Validates fluid headline typography using `clamp()` formulas that gracefully scale without line wraps exceeding 3 lines on mobile.
+- **Touch Ergonomics**:
+  - Audits interactive tap targets across mobile viewports: confirms all buttons, navigation pills, council markers, and currency tabs have minimum hit areas of 44x44px.
+
+#### 4.5 Dimension 5: Implementation Integrity & Craft Floor Bans (Target Score: 4/4)
+- **Strict Craft-Floor Bans Automated Scan**:
+  - **Zero Text Gradients**: Verifies zero CSS classes matching `bg-clip-text text-transparent bg-gradient-to-...`. Visual emphasis is achieved exclusively through typographic weight and size.
+  - **Zero Raw Neobrutalist Block Shadows**: Verifies zero `box-shadow: 4px 4px 0` or harsh unblurred offsets. Depth is authored exclusively through layered soft ambient shadows (`shadow-soft`, `shadow-card`, `shadow-modal`).
+  - **Zero Monospace as Decorative Costume**: Verifies monospace fonts are never used as decorative badge labels or eyebrow kickers; monospace is strictly reserved for technical data (CAC numbers, GTBank sort codes, TINs, IBANs).
+  - **Zero Nested Cards Inside Cards**: Confirms bento grid items and project drawers use clean single-surface containers without cards-inside-cards nesting.
+  - **Verified Direction Contract**: Confirms `<!-- IMPECCABLE DIRECTION CONTRACT: Warm Afro-Modernism | Abuja Resilience Initiative -->` exists as the immediate first child of `<body>` in `src/app/layout.tsx`.
+
+---
+
+### 5. Vercel Deployment Pre-Flight Checklist & Verification (`scripts/vercel-preflight.ts`)
+
+An automated pre-flight script validating all Vercel deployment invariants:
+1. **Zero-Error Production Build**:
+   - Executes `bun run build`. Confirms exit code 0.
+   - Asserts all 6 routes compile:
+     * `/` (Static with ISR revalidation tag `ngo-content`).
+     * `/admin` (Client-side interactive Content Studio).
+     * `/_not-found` (404 handler).
+     * `/api/admin/config` (Serverless Function, dynamic).
+     * `/api/revalidate` (Serverless Function, dynamic).
+     * `/api/social-feed` (Serverless Function, ISR 300s).
+2. **Serverless Function Budget & First Load JS**:
+   - First Load JS shared by all routes: `103 kB` (well below Vercel's 250 kB recommended ceiling).
+   - Largest route: `/` at `83.4 kB` / `191 kB` total first-load JS.
+3. **Remote Images Configuration**:
+   - Verifies `next.config.ts` includes `remotePatterns` for `res.cloudinary.com`, `**.amazonaws.com`, `**.r2.cloudflarestorage.com`, and `images.unsplash.com`.
+4. **Vercel Read-Only Filesystem Contingency**:
+   - Verifies that when `process.env.VERCEL === '1'`, the `/admin` Content Studio disables direct disk file writes and gracefully directs users to "Download JSON Archive" for commit-driven GitOps updates, ensuring zero runtime crashes on Vercel's read-only serverless lambdas.
+5. **Environment Variable Inventory & Guardrail**:
+   - Verifies fallback defaults are in place for all environment variables:
+     * `ADMIN_PASSPHRASE` (default: `abuja-resilience-2025`).
+     * `REVALIDATION_SECRET` (default: `abuja-resilience-revalidate-2025`).
+     * `NEXT_PUBLIC_NGO_NAME` (falls back to `content/organization.json`).
+     * `MEDIA_STORAGE_PROVIDER` (falls back to `'local'`).
+     * `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` (falls back gracefully to local `/media/...` if unconfigured).
+
+---
+
+## Critical Files & Anchors
+
+1. `tests/api/api-routes.test.ts`
+   - Comprehensive Bun test suite for `/api/admin/config`, `/api/revalidate`, and `/api/social-feed` verifying auth, status codes, and schema validation.
+2. `playwright.config.ts`
+   - Playwright configuration file setting up webServer, Chromium browser binary path, and mobile/desktop viewport matrix.
+3. `tests/e2e/human-journey.spec.ts`
+   - End-to-end browser test simulating the full human visitor and administrator journey.
+4. `tests/e2e/impeccable-audit.spec.ts`
+   - Automated Impeccable Design System diagnostic scan checking contrast, reduced motion, token fidelity, touch targets, and craft floor bans.
+5. `scripts/vercel-preflight.ts`
+   - Automated deployment pre-flight verification script auditing build artifacts, environment fallbacks, and Vercel serverless constraints.
+
+---
+
+## Verification
+
+Concrete execution commands to prove the app is ready for Vercel deployment:
+
+1. **Unit & API E2E Suite**:
+   - Command: `bun test`
+   - Expected Output: 100% pass across all test suites (`tests/e2e-matrix.test.ts`, `tests/api/api-routes.test.ts`, `tests/donation.test.ts`, `src/lib/media/resolver.test.ts`).
+2. **Human Real Usage Playwright E2E Suite**:
+   - Command: `npx playwright test tests/e2e/human-journey.spec.ts`
+   - Expected Output: All human visitor and administrator scenarios pass across desktop and mobile viewports.
+3. **Impeccable UI/UX Technical Audit Suite**:
+   - Command: `npx playwright test tests/e2e/impeccable-audit.spec.ts`
+   - Expected Output: All 5 dimensions score 4/4 (Total 20/20 "Excellent" rating band), zero craft-floor rule violations.
+4. **Vercel Deployment Pre-Flight Audit**:
+   - Command: `bun run scripts/vercel-preflight.ts`
+   - Expected Output: `[PRE-FLIGHT PASS]` confirming clean Next.js 15 build, remote patterns, ISR tags, and serverless budget.
+
+## Assumptions & Contingencies
+
+1. **Browser Binary Path**:
+   - Assumption: Playwright Chromium for Linux is installed in `/home/punkhazard/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome`.
+   - Contingency: If not detected, `playwright.config.ts` falls back to system Chromium or executes `npx playwright install chromium --only-shell`.
+2. **Vercel Read-Only Lambda Storage**:
+   - Assumption: At runtime on Vercel, the filesystem `/var/task` is read-only.
+   - Contingency: On Vercel, `/api/admin/config` detects read-only environments via `process.env.VERCEL` and returns structured instructions with the full validated JSON bundle, allowing admins to use the "Download JSON Archive" button to commit changes to git, preventing 500 runtime errors.

@@ -7,11 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+    "test": "bun test --path-ignore-patterns=\"tests/e2e/*\""
   },
   "dependencies": {
     "clsx": "^2.1.1",
     "lucide-react": "^1.16.0",
+    "maplibre-gl": "^6.7.0",
     "motion": "^12.4.7",
     "next": "^15.2.0",
     "react": "^19.0.0",
@@ -20,6 +22,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "@tailwindcss/postcss": "^4.0.9",
     "@types/bun": "^1.4.0",
     "@types/node": "^22.13.5",

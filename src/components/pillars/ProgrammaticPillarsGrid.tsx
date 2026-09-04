@@ -10,8 +10,8 @@ interface ProgrammaticPillarsGridProps {
 }
 
 export function ProgrammaticPillarsGrid({ onOpenDonationDrawer }: ProgrammaticPillarsGridProps) {
-  const healthImg = resolveMediaUrl("/media/image-health-outreach.svg");
-  const youthImg = resolveMediaUrl("/media/image-youth-education.svg");
+  const healthImg = resolveMediaUrl("https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=1200&q=80");
+  const youthImg = resolveMediaUrl("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80");
 
   return (
     <section
@@ -29,7 +29,7 @@ export function ProgrammaticPillarsGrid({ onOpenDonationDrawer }: ProgrammaticPi
           id="pillars-heading"
           className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold tracking-tight text-[var(--color-granite-deep,#111113)] leading-[1.15] mb-4"
         >
-          Ground-Level Intervention Infrastructure Across the FCT
+          Core Programmatic Pillars: Grassroots Intervention Infrastructure Across the FCT
         </h2>
         <p className="text-base sm:text-lg text-[var(--color-granite-muted,#7A736B)] leading-relaxed">
           Targeted community-rooted operations designed for enduring self-reliance across agrarian councils, urban informal clusters, and peri-urban artisan centers.
@@ -101,10 +101,11 @@ export function ProgrammaticPillarsGrid({ onOpenDonationDrawer }: ProgrammaticPi
               {onOpenDonationDrawer && (
                 <button
                   type="button"
-                  onClick={() => onOpenDonationDrawer("health")}
+                  onClick={() => onOpenDonationDrawer("tier-resilience")}
                   className="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-[var(--color-savannah-primary,#1C3F35)] text-white hover:bg-[var(--color-savannah-primary,#1C3F35)]/90 transition"
+                  aria-label="Support Clean Water"
                 >
-                  Fund Aquifer
+                  Support Clean Water
                 </button>
               )}
             </div>

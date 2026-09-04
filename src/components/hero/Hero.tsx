@@ -35,7 +35,7 @@ export function Hero({ config, onOpenDonation, className = "" }: HeroProps) {
       aria-labelledby="hero-heading"
     >
       {/* 1. Full-bleed Ambient Background Video / Poster Layer */}
-      <div className="absolute inset-0 -z-10 w-full h-full">
+      <div className="absolute inset-0 z-0 w-full h-full pointer-events-none">
         <HeroVideoPlayer config={config} />
       </div>
 

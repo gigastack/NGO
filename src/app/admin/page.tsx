@@ -147,12 +147,18 @@ export default function AdminStudioPage() {
 
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || "Failed to save configuration.");
-
-      setHasUnsavedChanges(false);
-      setStatusMessage({
-        type: "success",
-        text: "Configuration saved and updated successfully.",
-      });
+      if (json.readOnly) {
+        setStatusMessage({
+          type: "info",
+          text: json.message || "Vercel serverless environment is read-only. Please use 'Download JSON Archive' to export and commit changes.",
+        });
+      } else {
+        setHasUnsavedChanges(false);
+        setStatusMessage({
+          type: "success",
+          text: "Configuration saved and updated successfully.",
+        });
+      }
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Save failed";
       setStatusMessage({
