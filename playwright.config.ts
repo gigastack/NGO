@@ -15,7 +15,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
-    baseURL: "http://127.0.0.1:3000",
+    baseURL: process.env.PLAYWRIGHT_BASE_URL || "http://127.0.0.1:3000",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     launchOptions: {
@@ -51,10 +51,12 @@ export default defineConfig({
       },
     },
   ],
-  webServer: {
-    command: "bun run start",
-    port: 3000,
-    reuseExistingServer: true,
-    timeout: 120_000,
-  },
+  webServer: process.env.PLAYWRIGHT_BASE_URL
+    ? undefined
+    : {
+        command: "bun run start",
+        port: 3000,
+        reuseExistingServer: true,
+        timeout: 120_000,
+      },
 });
